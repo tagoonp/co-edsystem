@@ -51,6 +51,7 @@ h4{ font-size: 30px; font-weight: bold; }
 .nav-item{ font-size: 20px; }
 
 .btn-app-red, .btn-app, .btn-app-teal, .btn-app-blue, .btn-default{ font-size: 25px; }
+.btn-custom{ font-size: 20px; padding: 5px 10px 0px 10px; }
 
 .form-material>label{ font-weight: bold;}
 /*.form-material > .form-control{ margin-top: 60px;}*/
@@ -59,4 +60,10 @@ small{
   /*font-family: 'Kanit', sans-serif;*/
   font-weight: 200;
   background: transparent;
+}
+
+tbody.wizardTbd > tr > td{
+  padding: 5px 10px;
+  margin: 0px;
+  font-size: 24px;
 }

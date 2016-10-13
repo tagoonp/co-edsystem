@@ -73,7 +73,7 @@
                 <div class="form-group">
                   <div class="col-sm-12">
                       <div class="form-material">
-                          <input class="form-control" type="text" id="txt-username"  name="txt-username" placeholder="กรอกชื่อบัญชีผู้ใช้ หรือ E-mail address..." />
+                          <input class="form-control" type="text" id="txt-username"  name="txt-username" placeholder="กรอกชื่อบัญชีผู้ใช้ ..." />
                           <label for="val-username2">ชื่อบัญชีผู้ใช้ หรือ อีเมลแอดเดรส <span class="text-red">**</span></label>
                       </div>
                   </div>

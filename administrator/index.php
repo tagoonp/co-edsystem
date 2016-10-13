@@ -1,3 +1,28 @@
+<?php
+session_start();
+
+include "../xplor-config.php";
+include "../xplor-connect.php";
+
+$db = new database();
+$db->connect();
+$sprefix = $db->getSessionPrefix();
+
+$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.usertype_id = '1' AND a.active_status = 'Y'  ";
+$result = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
+
+
+if(!$result){
+  // print $strSQL;
+  // exit();
+  header('Location: ../error/?type=1'); die();
+  die();
+}
+
+$row = $result->fetch();
+// $rowQn = $resultQn->fetch();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,49 +59,40 @@
   </head>
   <body>
     <!-- Header -->
-                <header class="app-layout-header">
+                <header class="app-layout-header"   style="background: #021148; color: #fff;">
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar-collapse" aria-expanded="false">
-                        					<span class="sr-only">Toggle navigation</span>
-                        					<span class="icon-bar"></span>
-                        					<span class="icon-bar"></span>
-                        					<span class="icon-bar"></span>
-                        				</button>
+                                  <span class="sr-only">Toggle navigation</span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                </button>
                                                         <button class="pull-left hidden-lg hidden-md navbar-toggle" type="button" data-toggle="layout" data-action="sidebar_toggle">
-                        					<span class="sr-only">Toggle drawer</span>
-                        					<span class="icon-bar"></span>
-                        					<span class="icon-bar"></span>
-                        					<span class="icon-bar"></span>
-                        				</button>
-                                <span class="navbar-page-title">
-                                  ยินดีต้อนรับสู่ Co-ed system
-                        				</span>
+                                  <span class="sr-only">Toggle drawer</span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                </button>
+                                <span class="navbar-page-title" style="font-weight: bold;">
+                                  <!-- ยินดีต้อนรับสู่ Co-ed system<br> -->
+                                  <span style="font-size: 40px;">ระบบสมัครฝึกงานภาคฤดูร้อน <small style="margin-top: -20px; padding-top: 0px;">ภาควิชาฟิสิกส์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์</small></span>
+                                </span>
                             </div>
 
-                            <div class="collapse navbar-collapse" id="header-navbar-collapse">
-                                <!-- Header search form -->
-                                <form class="navbar-form navbar-left app-search-form" role="search">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" type="search" id="search-input" placeholder="ค้นหาด้วยรหัสนักศึกษา ..." />
-                                            <span class="input-group-btn">
-                              								<button class="btn" type="button"><i class="ion-ios-search-strong"></i></button>
-                              							</span>
-                                        </div>
-                                    </div>
-                                </form>
-
-
-
-                                <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                                    <li style="padding-top: 10px;">
-                                      <button type="button" name="button" class="btn btn-app-red" id="btnSignout">ออกจากระบบ</button>
-                                    </li>
-                                </ul>
-                                <!-- .navbar-right -->
-                            </div>
+                            <div id="navbar" class="navbar-collapse collapse" style="margin-top: 17px;">
+                              <ul class="nav navbar-nav navbar-right" >
+                                <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="color: #fff;"><?php echo $row['userinfo_prefix'].$row['userinfo_fname']." ".$row['userinfo_lname']; ?> <span class="caret"></span></a>
+                                  <ul class="dropdown-menu" style="font-size: 20px;">
+                                    <li><a href="./changepassword/">เปลี่ยนรหัสผ่าน</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="../signout.php">ออกจากระบบ</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div><!--/.nav-collapse -->
                         </div>
                         <!-- .container-fluid -->
                     </nav>
@@ -84,52 +100,53 @@
                 </header>
                 <!-- End header -->
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12 text-left">
-          <h2 style="font-weight: 400;">ระบบสมัครฝึกงานภาคฤดูร้อน<br><small>ภาควิชาฟิสิกส์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์</small></h2>
-        </div>
-      </div>
-      <div class="row" style="padding-top: 0px; margin-top: 0px;">
+
+      <div class="row" style="padding-top: 0px; margin-top: 20px;">
         <div class="col-sm-3">
-          <nav class="drawer-main">
-            <ul class="nav nav-drawer" >
-                <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">เมนู</li>
+          <div class="card">
+            <div class="card-block">
+              <nav class="drawer-main">
+                <ul class="nav nav-drawer" >
+                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">เมนู</li>
 
-                <li class="nav-item active">
-                    <a href="./" style="font-weight: 300;"><i class="ion-ios-speedometer-outline"></i> หน้าแรก</a>
-                </li>
+                    <li class="nav-item active">
+                        <a href="./" style="font-weight: 300;"><i class="ion-ios-speedometer-outline"></i> หน้าแรก</a>
+                    </li>
 
-                <!-- <li class="nav-item">
-                    <a href="./participant/" style="font-weight: 300;"><i class="ion-ios-monitor-outline"></i> รายการผู้สมัคร</a>
-                </li> -->
-                <li class="nav-item nav-item-has-subnav">
-                  <a href="javascript:void(0)" style="font-weight: 300;"><i class="ion-ios-monitor-outline"></i> รายการผู้สมัคร</a>
-                  <ul class="nav nav-subnav">
+                    <!-- <li class="nav-item">
+                        <a href="./participant/" style="font-weight: 300;"><i class="ion-ios-monitor-outline"></i> รายการผู้สมัคร</a>
+                    </li> -->
+                    <li class="nav-item nav-item-has-subnav">
+                      <a href="javascript:void(0)" style="font-weight: 300;"><i class="ion-ios-monitor-outline"></i> รายการผู้สมัคร</a>
+                      <ul class="nav nav-subnav">
 
-                      <li>
-                          <a href="./participant/" style="font-weight: 300;"><i class="ion-android-list"></i> ผู้สมัครที่ทำการยื่นขอ</a>
-                      </li>
+                          <li>
+                              <a href="./participant/" style="font-weight: 300;"><i class="ion-android-list"></i> ผู้สมัครที่ทำการยื่นขอ</a>
+                          </li>
 
-                      <li>
-                          <a href="./participant/" style="font-weight: 300;"><i class="ion-android-done-all"></i> ผู้สมัครที่ผ่านการดำเนินการแล้ว</a>
-                      </li>
+                          <li>
+                              <a href="./participant/" style="font-weight: 300;"><i class="ion-android-done-all"></i> ผู้สมัครที่ผ่านการดำเนินการแล้ว</a>
+                          </li>
 
-                  </ul>
-                </li>
+                      </ul>
+                    </li>
 
-                <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
+                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
 
-                <li class="nav-item">
-                    <a href="./useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
-                </li>
+                    <li class="nav-item">
+                        <a href="./useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
+                    </li>
 
-                <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>
+                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>
 
-                <li class="nav-item">
-                    <a href="../signout.php" style="font-weight: 300;"><i class="ion-android-exit"></i> ออกจากระบบ</a>
-                </li>
-            </ul>
-          </nav>
+                    <li class="nav-item">
+                        <a href="../signout.php" style="font-weight: 300;"><i class="ion-android-exit"></i> ออกจากระบบ</a>
+                    </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
         </div>
         <div class="col-sm-9" style="padding-top: 20px;" id="loginPane">
           <div class="row">

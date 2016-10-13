@@ -38,8 +38,6 @@ $row = $result->fetch();
     <link rel="apple-touch-icon" href="../../assets/img/favicons/apple-touch-icon.png" />
     <link rel="icon" href="../../assets/img/favicons/favicon.ico" />
 
-    <!-- Google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Kanit:200,300,400,500" rel="stylesheet">
 
     <!-- Page JS Plugins CSS -->
     <link rel="stylesheet" href="../../assets/js/plugins/datatables/jquery.dataTables.min.css" />
@@ -148,95 +146,46 @@ $row = $result->fetch();
         <div class="col-sm-9" style="padding-top: 0px;" id="loginPane">
           <div class="row">
             <div class="col-sm-12 text-left">
-              <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">เพิ่มบัญชีผู้ใช้งาน</button>
+              <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">ระงับการใช้งาน</button>
+              <button type="button" name="button" class="btn btn-app-red btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">ลบบัญชีผู้ใช้นี้</button>
             </div>
           </div>
-          <div class="row" style="margin-top: 20px;">
+          <div class="row" style="margin-top: 20px; font-size: 0.8em;">
             <div class="col-sm-12">
               <div class="card">
-                <div class="card-header bg-blue bg-inverse">
-                    <h4 style="background: transparent; font-weight: bold;">บัญชีผู้ใช้งาน</h4>
-                </div>
-                <div class="card-block">
-                  <table class="table table-bordered table-striped table-vcenter js-dataTable-full table-header-bg">
-                    <thead>
-                        <tr>
-                            <th  style="font-weight: bold; padding: 10px; font-size: 26px;"></th>
-                            <th style="font-weight: bold; padding: 10px; font-size: 26px;">ชื่อบัญชีผู้ใช้</th>
-                            <th  style="font-weight: bold; padding: 10px; font-size: 26px;">ชื่อ-สกุล</th>
-                            <th  style="font-weight: bold; padding: 10px; font-size: 26px;">ประเภท</th>
-                            <th  style="font-weight: bold; padding: 10px; font-size: 26px;">สถานะ</th>
-                            <th style="width: 20%;" ></th>
-                        </tr>
-                    </thead>
-                    <tbody class="wizardTbd">
-                      <?php
-                      $strSQL = "SELECT * FROM trs3_user a inner join trs3_userinfo b on a.username = b.userinfo_username WHERE 1 ORDER BY a.reg_date LIMIT 0, 1000";
-                      $result = $db->select($strSQL, array("N"));
-                      if($result){
-                        // $row = $result->fetch();
-                        $c = 1;
-                        foreach ($result as $value) {
-                          // $row = $value->fetch();
-                          ?>
-                          <tr>
-                              <td class="text-center"><?php echo $c; $c++; ?></td>
-                              <td class="font-500"><?php echo $value['username']; ?></td>
-                              <td class="hidden-xs"><?php echo $value['userinfo_fname']." ".$value['userinfo_lname'] ; ?></td>
-                              <td class="hidden-xs"><?php
-                                switch ($value['usertype_id']) {
-                                  case '1':
-                                    echo "Administrator";
-                                    break;
-                                    case '2':
-                                      echo "Teaching staff";
-                                      break;
-                                      case '3':
-                                        echo "Coordinator staff";
-                                        break;
-                                        case '4':
-                                          echo "Student";
-                                          break;
-                                  default:
-                                    echo "N/A";
-                                    break;
-                                }
-                              ?></td>
-                              <td>
-                                <?php
-                                switch($value['active_status']){
-                                  case 'Y': echo "<span style=color:green;>Active</span>"; break;
-                                  default: echo "<span style=color:red;>Disabled</span>";
-                                }
-                                ?>
-                              </td>
-                              <td class="text-center">
-                                  <div class="btn-group">
-                                      <button class="btn btn-xs btn-app-blue btn-custom" type="button" data-toggle="tooltip" title="ดูข้อมูล" onclick="redirect('../userinfo/?username=<?php echo $value['username']; ?>')"><i class="fa fa-search"></i></button>
-                                      <?php
-                                      if($value['usertype_id']!='1'){
-                                        ?>
-                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/delete_register.php?pid=<?php echo $value['registration_id']; ?>')"><i class="fa fa-trash"></i></button>
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" disabled data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/delete_register.php?pid=<?php echo $value['registration_id']; ?>')"><i class="fa fa-trash"></i></button>
-                                        <?php
-                                      }
-                                      ?>
-
-                                  </div>
-                              </td>
-                          </tr>
-                          <?php
-                        }
-                      }
-                      ?>
-
-                      </tbody>
-                    </table>
+                <ul class="nav nav-tabs" data-toggle="tabs">
+                    <li class="active">
+                        <a href="#btabs-static-home">ข้อมูลบัญชีผู้ใช้</a>
+                    </li>
+                    <li>
+                        <a href="#btabs-static-profile">ข้อมูลอื่นๆ</a>
+                    </li>
+                    <li class="pull-right">
+                        <a href="#btabs-static-settings" data-toggle="tooltip" title="Settings">Logs</a>
+                    </li>
+                </ul>
+                <div class="card-block tab-content">
+                    <div class="tab-pane active" id="btabs-static-home">
+                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher
+                            retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
+                            qui.
+                            <p>
+                    </div>
+                    <div class="tab-pane" id="btabs-static-profile">
+                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
+                            beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica
+                            VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+                            stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                    </div>
+                    <div class="tab-pane" id="btabs-static-settings">
+                        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard
+                            locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie
+                            etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                    </div>
                 </div>
               </div>
+              <!-- End Card Tabs Default Style -->
+
             </div>
           </div>
           <!-- End row -->

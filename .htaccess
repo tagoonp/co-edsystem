@@ -1,14 +1,15 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /co-edsystem/
+RewriteBase /coedsystem/
 #RewriteRule ^index\.php$ - [L]
 #RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule . /co-edsystem/index.html [L]
+#RewriteRule . /coedsystem/index.html [L]
 
 RewriteRule ^signin/$ signin.php    [NC,L]
 RewriteRule ^administrator/participant/$ administrator/participant.php    [NC,L]
 RewriteRule ^administrator/useraccount/$ administrator/useraccount.php    [NC,L]
+RewriteRule ^administrator/userinfo/$ administrator/userinfo.php    [NC,L]
 RewriteRule ^administrator/applicationinfo/$ administrator/application-into.php    [NC,L]
 RewriteRule ^student/question/$ student/question.php    [NC,L]
 RewriteRule ^student/application/$ student/applicationform.php    [NC,L]

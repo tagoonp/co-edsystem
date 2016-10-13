@@ -32,7 +32,8 @@ var BaseFormValidation = function() {
                   required: true
                 },
                 'register2-password3': {
-                  required: true
+                  required: true,
+									equalTo: '#register2-password2'
                 }
             },
             messages: {
@@ -47,7 +48,8 @@ var BaseFormValidation = function() {
 								required: 'กรุณากรอกรหัสผ่านใหม่'
 							},
 							'register2-password3': {
-								required: 'กรุณายืมยันรหัสผ่านใหม่'
+								required: 'กรุณายืมยันรหัสผ่านใหม่',
+								equalTo: 'รหัสผ่านไม่ตรงกัน'
 							}
             }
         });
