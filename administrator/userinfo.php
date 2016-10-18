@@ -20,7 +20,17 @@ if(!$result){
 }
 
 $row = $result->fetch();
-// $rowQn = $resultQn->fetch();
+
+
+if(!isset($_GET['username'])){
+  header('Location: ../error/?type=2'); die();
+  die();
+}
+
+$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.active_status = 'Y'  ";
+$resultUserinfo = $db->select($strSQL, array($_GET['username']));
+
+$rowinfo = $resultUserinfo->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -129,7 +139,7 @@ $row = $result->fetch();
                     <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
 
                     <li class="nav-item active">
-                        <a href="#" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
+                        <a href="../useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
                     </li>
 
                     <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>
@@ -145,9 +155,14 @@ $row = $result->fetch();
         </div>
         <div class="col-sm-9" style="padding-top: 0px;" id="loginPane">
           <div class="row">
-            <div class="col-sm-12 text-left">
-              <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">ระงับการใช้งาน</button>
-              <button type="button" name="button" class="btn btn-app-red btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">ลบบัญชีผู้ใช้นี้</button>
+            <div class="col-sm-6 text-left">
+              <a href="../updateinfo/?username=<?php echo $rowinfo['username']; ?>" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">แก้ไขข้อมูลผู้ใช้</a>
+              <!-- <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;"></button> -->
+              <button type="button" name="button" class="btn btn-app-teal btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;">ระงับการใช้งาน</button>
+
+            </div>
+            <div class="col-sm-6 text-right">
+              <button type="button" name="button" class="btn btn-app-red btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;">ลบบัญชีผู้ใช้นี้</button>
             </div>
           </div>
           <div class="row" style="margin-top: 20px; font-size: 0.8em;">
@@ -166,21 +181,536 @@ $row = $result->fetch();
                 </ul>
                 <div class="card-block tab-content">
                     <div class="tab-pane active" id="btabs-static-home">
-                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher
-                            retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
-                            qui.
-                            <p>
+                        <div class="row">
+                          <div class="col-sm-3 col-sm-offset-1 cont-title">
+                            ชื่อบัญชีผู้ใช้
+                          </div>
+                          <div class="col-sm-8">
+                            <?php echo $rowinfo['username']; ?>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-3 col-sm-offset-1 cont-title">
+                            ชื่อ - สกุล
+                          </div>
+                          <div class="col-sm-8">
+                            <?php echo $rowinfo['userinfo_prefix'].$rowinfo['userinfo_fname']." ".$rowinfo['userinfo_lname']; ?>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-3 col-sm-offset-1 cont-title">
+                            หมายเลขโทรศัพท์
+                          </div>
+                          <div class="col-sm-8">
+                            <?php echo $rowinfo['userinfo_phone']; ?>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-3 col-sm-offset-1 cont-title">
+                            Email
+                          </div>
+                          <div class="col-sm-8">
+                            <?php echo $rowinfo['email']; ?>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-3 col-sm-offset-1 cont-title">
+                            Role
+                          </div>
+                          <div class="col-sm-8">
+                            <?php
+                            switch($rowinfo['usertype_id']){
+                              case 1: echo "Administrator"; break;
+                              case 2: echo "Teaching staff"; break;
+                              case 3: echo "Coordinator staff"; break;
+                              case 4: echo "Student"; break;
+                              default: echo "N/A";
+                            }
+                            ?>
+                          </div>
+                        </div>
+
                     </div>
                     <div class="tab-pane" id="btabs-static-profile">
-                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
-                            beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica
-                            VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
-                            stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        <?php
+                        if($rowinfo['usertype_id']==4){
+                          $strSQL = "SELECT * FROM trs3_registration WHERE std_id = ?  ORDER BY registration_id ";
+                          $result = $db->select($strSQL, array($rowinfo['username']));
+
+                          $strSQL = "SELECT * FROM trs3_department WHERE tmp_std_id = ?";
+                          $resultDept = $db->select($strSQL, array($rowinfo['username']));
+
+                          $strSQL = "SELECT * FROM trs3_questioniar WHERE qn_studentid = ?";
+                          $resultQn = $db->select($strSQL, array($rowinfo['username']));
+
+                          $row = $result->fetch();
+                          // $rowQn = $resultQn->fetch();
+
+                          if($result){
+                            ?>
+                            <div class="card">
+                                                    <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
+                                                        <li class="active">
+                                                            <a href="#btabs-alt-static-home">ใบสมัครฝึกงานภาคฤดูร้อน</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#btabs-alt-static-profile">แบบสอบถามรายวิชาฝึกงาน</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="card-block tab-content">
+                                                        <div class="tab-pane active" id="btabs-alt-static-home">
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                              <div class="text-center">
+                                                                <h4 style="background: transparent; font-weight: bold; font-size: 34px; color: teal;">ใบสมัครฝึกงานภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>
+                                                                  ภาควิชาฟิสิกส์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์<br>
+                                                                  <span style="font-size: 26px;">รายการเลขที่ <?php echo $row['registration_id']; ?> วันที่ <?php echo $row['reg_date']; ?></span>
+                                                                </h4>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+
+
+                                                          <div class="" style="font-size: 24px;">
+                                                            <div class="row" style="padding-top: 20px;">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(1)</span>
+                                                              </div>
+                                                              <div class="col-sm-11">
+                                                                <span class="cont-title2">ชื่อ - สกุล (ภาษาไทย)</span> <?php echo $row['std_fullname_th']; ?> <br>
+                                                                <span class="cont-title2">ชื่อ - สกุล (ภาษาอังกฤษ)</span> <?php echo $row['std_fullname_en']; ?><br>
+                                                                <span class="cont-title2">รหัสนักศึกษา</span> <?php echo $row['std_id']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(2)</span>
+                                                              </div>
+                                                              <div class="col-sm-6">
+                                                                <span class="cont-title2">วัน/เดือน/ปีเกิด</span> <?php $b = explode('-', $row['dob']); echo $b[2] . "/" . $b[1] . "/" . (intval($b[0]) + 543);?> <br>
+
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                <span class="cont-title2">อายุ</span> <?php echo $row['age']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-3 col-sm-offset-1">
+                                                                <span class="cont-title2">ศาสนา</span> <?php $b = explode('-', $row['dob']); echo $b[2] . "/" . $b[1] . "/" . (intval($b[0]) + 543);?> <br>
+                                                              </div>
+                                                              <div class="col-sm-3">
+                                                                <span class="cont-title2">สัญชาติ</span> <?php echo $row['nation']; ?>
+                                                              </div>
+                                                              <div class="col-sm-3">
+                                                                <span class="cont-title2">เชื้อชาติ</span> <?php echo $row['race']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-11 col-sm-offset-1">
+                                                                <span class="cont-title2">โรคประจำตัว</span><br>
+                                                                <?php
+                                                                $strSQL = "SELECT * FROM trs3_disease WHERE di_regid = ?  ";
+                                                                $result2d = $db->select($strSQL, array($row['registration_id']));
+
+                                                                if($result2d){
+                                                                  $c = 1;
+                                                                  if(sizeof($result2d)>1){
+                                                                    foreach ($result2d as $value) {
+                                                                      echo $c;
+                                                                      echo ') ';
+                                                                      echo $value['di_desc']."<br>";
+                                                                      $c++;
+                                                                    }
+                                                                  }else if(sizeof($result2d)==1){
+                                                                    $rowd = $result2d->fetch();
+                                                                    if($rowd['di_desc']==''){
+                                                                      echo "ไม่มี";
+                                                                    }else{
+                                                                      echo "1) ". $rowd['di_desc'];
+                                                                    }
+                                                                  }
+
+                                                                }else{
+                                                                  print "-";
+                                                                }
+                                                                ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-6 col-sm-offset-1">
+                                                                <span class="cont-title2">โทรศัพท์</span> <?php echo $row['phone']; ?>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                <span class="cont-title2">email</span> <?php echo $row['email']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(3)</span>
+                                                              </div>
+                                                              <div class="col-sm-11">
+                                                                <span class="cont-title2">ที่อยู่ปัจจุบัน</span> <?php echo $row['address']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(4)</span>
+                                                              </div>
+                                                              <div class="col-sm-11">
+                                                                <span class="cont-title2">ประวัติการศึกษา เกรดเฉลี่ย</span> <?php echo $row['gpa']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(5)</span>
+                                                              </div>
+                                                              <div class="col-sm-11">
+                                                                <span class="cont-title2">บุคคลที่สามารถติดต่อได้กรณีเร่งด่วน</span>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-11 col-sm-offset-1">
+                                                                <span class="cont-title2">ชื่อ - สกุล</span> <?php echo $row['ergen_person']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-6 col-sm-offset-1">
+                                                                <span class="cont-title2">เกี่ยวข้องเป็น</span> <?php echo $row['ergen_relation']; ?>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                <span class="cont-title2">หมายเลขโทรศัพท์</span> <?php echo $row['ergen_phone']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(6)</span>
+                                                              </div>
+                                                              <div class="col-sm-6">
+                                                                <span class="cont-title2">ระยะเวลาฝึกงานตั้งแต่วันที่</span> <?php echo $row['train_start']; ?>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                <span class="cont-title2">ถึงวันที่</span> <?php echo $row['train_end']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-11 col-sm-offset-1">
+                                                                <span class="cont-title2">ลักษณะงาน</span>  <?php if($row['job_attr']!=''){ echo $row['job_attr']; }else{ echo "-"; } ?>
+                                                              </div>
+                                                            </div>
+                                                            <div class="row">
+                                                              <div class="col-sm-11 col-sm-offset-1">
+                                                                <span class="cont-title2">ประเภทงาน</span> <?php if($row['job_type']!=''){ echo $row['job_type']; }else{ echo "-"; } ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(7)</span>
+                                                              </div>
+                                                              <div class="col-sm-11">
+                                                                <span class="cont-title2">การมีส่วนร่วมในกิจกรรม ทั้งในและนอกมหาวิทยาลัย นอกเนือจากการเรียนปกติ</span>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-11 col-sm-offset-1">
+                                                                <?php
+                                                                if(($row['act_1']=='') && ($row['act_2']=='') && ($row['act_3']=='') && ($row['act_4']=='')){
+                                                                  print "ไม่ระบุ";
+                                                                }else{
+                                                                  if($row['act_1']!=''){ echo '1) '; echo $row['act_1']."<br>"; }
+                                                                  if($row['act_2']!=''){ echo '2) '; echo $row['act_2']."<br>"; }
+                                                                  if($row['act_3']!=''){ echo '3) '; echo $row['act_3']."<br>"; }
+                                                                  if($row['act_4']!=''){ echo '4) '; echo $row['act_4']; }
+                                                                }
+                                                                ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(8)</span>
+                                                              </div>
+                                                              <div class="col-sm-11">
+                                                                <span class="cont-title2">ความสามารถทางด้านภาษา ทักษะการสื่อสารภาษาอังกฤษ</span> <?php
+                                                                  switch ($row['eng_skill']) {
+                                                                    case '1':
+                                                                      echo "ดี";
+                                                                      break;
+                                                                    case '2':
+                                                                      echo "ปานกลาง";
+                                                                      break;
+                                                                    case '3':
+                                                                      echo "พอใช้";
+                                                                      break;
+                                                                    default:
+                                                                      echo "ไม่ระบุ";
+                                                                      break;
+                                                                  }?>
+                                                              </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                              <div class="col-sm-1">
+                                                                <span class="cont-title2">(9)</span>
+                                                              </div>
+                                                              <div class="col-sm-11">
+                                                                <span class="cont-title2">ความสามารถด้านคอมพิวเตอร์</span>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-11 col-sm-offset-1">
+                                                                <?php
+                                                                if(($row['com_skill_1']=='') && ($row['com_skill_2']=='') && ($row['com_skill_3']=='')){
+                                                                  print "ไม่ระบุ";
+                                                                }else{
+                                                                  if($row['com_skill_1']!=''){ echo '1) '; echo $row['com_skill_1']."<br>"; }
+                                                                  if($row['com_skill_2']!=''){ echo '2) '; echo $row['com_skill_2']."<br>";  }
+                                                                  if($row['com_skill_3']!=''){ echo '3) '; echo $row['com_skill_3']; }
+                                                                }
+                                                                ?>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+
+                                                        </div>
+                                                        <!-- End tab1 -->
+
+                                                        <div class="tab-pane" id="btabs-alt-static-profile">
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                              <div class="text-center">
+                                                                <h4 style="background: transparent; font-weight: bold; font-size: 34px; color: teal;">แบบสอบถามรายวิชาฝึกงาน<br>
+                                                                  ประจำภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>
+                                                                  <span style="font-size: 26px;">ชื่อ - สกุล <span style="color: black;"><?php echo $row['std_fullname_th']; ?></span>  รหัสนักศึกษา <span style="color: black;"><?php echo $row['std_id']; ?></span></span>
+                                                                </h4>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+
+                                                          <div class="container">
+                                                            <?php
+                                                            if($resultQn){
+                                                              $rowQn = $resultQn->fetch();
+                                                              ?>
+                                                              <div class="row">
+                                                                <div class="col-sm-10 col-sm-offset-1">
+                                                                  <h4 style="color: orange;">ข้อมูลความต้องการฝึกงาน</h4>
+                                                                  <table class="table table-bordered table-header-bg">
+                                                                    <thead>
+                                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                                                        ลำดับที่
+                                                                      </th>
+                                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                                                        สาขา/ตำแหน่ง/แผนก/ฝ่าย
+                                                                      </th>
+                                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                                                        หน่วยงาน/บริษัท/สถานประกอบการ
+                                                                      </th>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                      <?php
+                                                                      $strSQL = "SELECT * FROM trs3_department WHERE tmp_std_id = ?";
+                                                                      $resultDept = $db->select($strSQL, array($rowinfo['username']));
+
+                                                                      if($resultDept){
+                                                                        $c = 1;
+                                                                        foreach ($resultDept as $value2) {
+                                                                          ?>
+                                                                          <tr>
+                                                                            <td style="padding: 5px 10px; font-size: 24px;">
+                                                                              <?php echo $c; ?>
+                                                                            </td>
+                                                                            <td style="padding: 5px 10px; font-size: 24px;">
+                                                                              <?php echo $value2['tmp_dept']; ?>
+                                                                            </td>
+                                                                            <td style="padding: 5px 10px; font-size: 24px;">
+                                                                              <?php echo $value2['tmp_unit']; ?>
+                                                                            </td>
+                                                                          </tr>
+                                                                          <?php
+                                                                          $c++;
+                                                                        }
+                                                                      }
+                                                                      ?>
+                                                                    </tbody>
+                                                                  </table>
+
+                                                                  <div class="" style="font-size: 24px;">
+                                                                    <div class="row">
+                                                                      <div class="col-sm-12">
+                                                                        <span class="cont-title2">ระยะเวลาฝึกงานตั้งแต่วันที่</span> <?php echo $rowQn['qn_start']; ?> <span class="cont-title2">ถึงวันที่</span> <?php echo $rowQn['qn_end']; ?>
+                                                                      </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                      <div class="col-sm-12">
+                                                                        <span style="color:red;">* </span> หากไม่ระบุวันฝึกงาน ให้ใช้วันที่ภาควิชากำหนด
+                                                                        (ภาคฤดูร้อนไม่น้อยกว่า 6 สัปดาห์ ฯ ละไม่ต่ำกว่า 25 ชั่วโมง)<br>
+                                                                        <span style="color:red;">** </span> กรณีฝึกที่เดียวกันหลายคนให้ใช้ช่วงเวลาฝึกเดียวกัน
+                                                                      </div>
+                                                                    </div>
+
+                                                                    <hr>
+
+                                                                    <div class="row">
+                                                                      <div class="col-sm-12">
+                                                                        <span class="cont-title2">นักศึกษาสามารถติดต่อกับหน่วยงานที่จะไปฝึกงานด้วยตัวเอง</span>
+                                                                        <?php
+                                                                        switch($rowQn['qn_seltcontact']){
+                                                                          case 'No': echo 'ไม่ได้'; break;
+                                                                          case 'Yes': echo 'ได้'; break;
+                                                                          default: echo 'ไม่ระบุ';
+                                                                        }
+                                                                        ?>
+                                                                      </div>
+                                                                    </div>
+
+                                                                    <div class="row" style="display: <?php if($rowQn['qn_seltcontact']=='No'){ print "none"; }?>; ">
+                                                                      <div class="col-sm-12">
+                                                                        <h4 style="color: orange;">ส่วนนี้กรอกเฉพาะนักศึกษาที่ติดต่อหาที่ฝึกงานได้ด้วยตัวเองเท่านั้น</h4>
+                                                                        <?php
+                                                                        if($rowQn['qn_selfcontactinfo']==''){
+                                                                          echo $rowQn['qn_selfcontactinfo'];
+                                                                        }else{
+                                                                          echo "-";
+                                                                        }
+
+                                                                        ?>
+                                                                      </div>
+                                                                    </div>
+
+                                                                  </div>
+
+                                                                </div>
+                                                              </div>
+                                                              <?php
+                                                            }else{
+                                                              ?>
+                                                              <div class="row">
+                                                                <div class="col-sm-12">
+                                                                  ไม่มีข้อมูล
+                                                                </div>
+                                                              </div>
+                                                              <?php
+                                                            }
+                                                            ?>
+                                                          </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Card Tabs Alternative Style -->
+                            <?php
+                          }else{
+                            ?>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                ไม่มีข้อมูลอื่นๆ
+                              </div>
+                            </div>
+                            <?php
+                          }
+                        }else{
+                          ?>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              ไม่มีข้อมูลอื่นๆ
+                            </div>
+                          </div>
+                          <?php
+                        }
+                        ?>
                     </div>
                     <div class="tab-pane" id="btabs-static-settings">
-                        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard
-                            locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie
-                            etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <table class="table table-bordered table-striped table-vcenter js-dataTable-full table-header-bg">
+                            <thead>
+                              <tr>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  ลำดับที่
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  กระบวนการ
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  สถานะ
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  โดย
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  วันที่ปรับปรุงข้อมูล
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+                              $strSQL = "SELECT * FROM trs3_usertransection WHERE	t_username = ? ";
+                              $resultTransection = $db->select($strSQL, array($rowinfo['username']));
+                              // echo $strSQL;
+                              // echo $rowinfo['username'];
+                              if($resultTransection){
+                                $i = 1;
+                                foreach ($resultTransection as $value3) {
+                                  ?>
+                                  <tr>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $i; $i++; ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $value3['t_desc']; ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php
+                                        if($value3['t_status']=='Fail'){
+                                          echo '<span style="color:red;">'.$value3['t_status'].'</span>';
+                                        }else{
+                                          echo '<span style="color:green;">'.$value3['t_status'].'</span>';
+                                        }
+                                      ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $value3['t_relateuser']; ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $value3['t_date']." ".$value3['t_time']; ?>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                }
+                              }else{
+                                ?>
+                                <tr>
+                                  <td colspan="5">
+                                    ไม่มีข้อมูล
+                                  </td>
+                                </tr>
+                                <?php
+                              }
+                              ?>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
                 </div>
               </div>
@@ -215,10 +745,10 @@ $row = $result->fetch();
     <script src="../../assets/js/app-custom.js"></script>
 
     <!-- Page JS Plugins -->
-        <script src="../../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
 
-        <!-- Page JS Code -->
-        <script src="../../assets/js/pages/base_tables_datatables.js"></script>
+    <!-- Page JS Code -->
+    <script src="../../assets/js/pages/base_tables_datatables.js"></script>
 
     <!-- Include JS custom code -->
     <script src="../../dist/page/administrator/index.js"></script>

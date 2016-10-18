@@ -148,7 +148,7 @@ $row = $result->fetch();
         <div class="col-sm-9" style="padding-top: 0px;" id="loginPane">
           <div class="row">
             <div class="col-sm-12 text-left">
-              <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">เพิ่มบัญชีผู้ใช้งาน</button>
+              <a href="../adduser/" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">เพิ่มบัญชีผู้ใช้งาน</a>
             </div>
           </div>
           <div class="row" style="margin-top: 20px;">
@@ -266,10 +266,10 @@ $row = $result->fetch();
     <script src="../../assets/js/app-custom.js"></script>
 
     <!-- Page JS Plugins -->
-        <script src="../../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
 
-        <!-- Page JS Code -->
-        <script src="../../assets/js/pages/base_tables_datatables.js"></script>
+    <!-- Page JS Code -->
+    <script src="../../assets/js/pages/base_tables_datatables.js"></script>
 
     <!-- Include JS custom code -->
     <script src="../../dist/page/administrator/index.js"></script>
