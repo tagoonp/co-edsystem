@@ -50,6 +50,8 @@ $row = $result->fetch();
     <link rel="stylesheet" id="css-bootstrap" href="../../assets/css/bootstrap.css" />
     <link rel="stylesheet" id="css-app" href="../../assets/css/app.css" />
     <link rel="stylesheet" id="css-app-custom" href="../../assets/css/app-custom.css" />
+    <script src="../../ext-lib/sweetalert-master/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../ext-lib/sweetalert-master/dist/sweetalert.css">
 
 
     <!-- End Stylesheets -->
@@ -216,11 +218,11 @@ $row = $result->fetch();
                                       <?php
                                       if($value['usertype_id']!='1'){
                                         ?>
-                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/delete_register.php?pid=<?php echo $value['registration_id']; ?>')"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/user-delete.php?username=<?php echo $value['username']; ?>')" ><i class="fa fa-trash"></i></button>
                                         <?php
                                       }else{
                                         ?>
-                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" disabled data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/delete_register.php?pid=<?php echo $value['registration_id']; ?>')"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" disabled data-toggle="tooltip" title="ลบรายการ" ><i class="fa fa-trash"></i></button>
                                         <?php
                                       }
                                       ?>

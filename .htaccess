@@ -12,6 +12,9 @@ RewriteRule ^administrator/useraccount/$ administrator/useraccount.php    [NC,L]
 RewriteRule ^administrator/userinfo/$ administrator/userinfo.php    [NC,L]
 RewriteRule ^administrator/updateinfo/$ administrator/updateinfo.php    [NC,L]
 RewriteRule ^administrator/adduser/$ administrator/adduser.php    [NC,L]
+RewriteRule ^administrator/changepassword/$ administrator/changepassword.php    [NC,L]
+RewriteRule ^administrator/applicationinfo/$ administrator/application-info.php    [NC,L]
+
 
 RewriteRule ^administrator/applicationinfo/$ administrator/application-into.php    [NC,L]
 RewriteRule ^student/question/$ student/question.php    [NC,L]

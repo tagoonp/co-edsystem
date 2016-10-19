@@ -12,10 +12,12 @@ if(!isset($_GET['pid'])){
 
 }
 
-$strSQL = "SELECT * FROM trs3_registration WHERE registration_id = ? AND confirm_status = ? ORDER BY registration_id ";
+$strSQL = "SELECT * FROM trs3_registration a INNER JOIN trs3_questioniar b on a.std_id = b.qn_studentid WHERE a.registration_id = ? AND a.confirm_status = ? ORDER BY a.registration_id ";
 $result = $db->select($strSQL, array($_GET['pid'], "N"));
 
 if(!$result){
+  echo $strSQL;
+  exit();
   header('Location: ../error/?type=1'); die();
 }
 

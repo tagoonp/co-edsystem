@@ -66,16 +66,20 @@
           <h1>ลงชื่อเข้าใช้งาน</h1>
           <!-- <h3>ระบบสมัครฝึกงานภาคฤดูร้อน</h3> -->
         </div>
-        <div class="col-sm-12" style="padding-top: 40px;" id="loginPane">
+        <div class="col-sm-12" style="padding-top: 10px;" id="loginPane">
           <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
               <form class="js-validation-material form-horizontal" action="../controller/authen.php" method="post" >
                 <div class="form-group">
                   <div class="col-sm-12">
                       <div class="form-material">
-                          <input class="form-control" type="text" id="txt-username"  name="txt-username" placeholder="กรอกชื่อบัญชีผู้ใช้ ..." />
-                          <label for="val-username2">ชื่อบัญชีผู้ใช้ หรือ อีเมลแอดเดรส <span class="text-red">**</span></label>
+                          <input class="form-control" type="text" id="txt-username"  name="txt-username" autofocus placeholder="กรอกชื่อบัญชีผู้ใช้ ..." />
+                          <label for="val-username2">ชื่อบัญชีผู้ใช้ <span class="text-red">**</span></label>
+
                       </div>
+                      <p style="font-size: 18px; color: #888;">
+                          <u style="font-weight: bold;">คำแนะนำ</u> รหัสนักศึกษาให้ใช้ "รหัสนักศึกษา" สำหรับอาจารย์และเจ้าหน้าที่ประสานงาน ให้ใช้ชื่อบัญชีผู้ใช้ในการเข้าสู่ระบบ
+                      </p>
                   </div>
                 </div>
 
@@ -97,6 +101,13 @@
             </div>
           </div>
           <!-- End row -->
+          <!-- <div class="row" style="margin-top: 20px;">
+            <div class="col-sm-4 col-sm-offset-4">
+              <div class="" style="padding: 10px; font-size: 22px; background: rgb(223, 174, 174)">
+                สำหรับนักรหัสนักศึกษาให้ใช้ "รหัสนักศึกษา" สำหรับอาจารย์และเจ้าหน้าที่ประสานงาน ให้ใช้ชื่อบัญชีผู้ใช้ในการเข้าสู่ระบบ
+              </div>
+            </div>
+          </div> -->
         </div>
         <!-- End col-sm-12 -->
       </div>

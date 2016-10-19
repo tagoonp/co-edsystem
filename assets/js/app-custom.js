@@ -29,13 +29,16 @@ $(function(){
   $('#btnaddrequirement').click(function(){
     if(($('#txt-department').val()=='') || ($('#txt-unit').val()=='')){
       swal('กรุณากรอกสาขา/ตำแหน่ง/แผนก/ฝ่าย และหน่วยงาน/บริษัท/สถานประกอบการ');
-      swal("คำเตือน!", "กรุณากรอกสาขา/ตำแหน่ง/แผนก/ฝ่าย และหน่วยงาน/บริษัท/สถานประกอบการ!", "warning")
+      swal("คำเตือน!", "กรุณากรอกสาขา/ตำแหน่ง/แผนก/ฝ่าย และหน่วยงาน/บริษัท/สถานประกอบการ!", "warning");
     }else{
       var posting = $.post( 'controller/temporary_departmant.php', { department: $('#txt-department').val(), unit: $('#txt-unit').val(), std_id: $('#txt-stdid').val() }, function(){});
 
       posting.always(function( data ) {
         $('#temp_result').html(data);
       });
+
+      $('#txt-department').val('');
+      $('#txt-unit').val('');
     }
   });
 });

@@ -27,7 +27,7 @@ if(!isset($_GET['username'])){
   die();
 }
 
-$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.active_status = 'Y'  ";
+$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ?   ";
 $resultUserinfo = $db->select($strSQL, array($_GET['username']));
 
 $rowinfo = $resultUserinfo->fetch();
@@ -58,6 +58,8 @@ $rowinfo = $resultUserinfo->fetch();
     <link rel="stylesheet" id="css-bootstrap" href="../../assets/css/bootstrap.css" />
     <link rel="stylesheet" id="css-app" href="../../assets/css/app.css" />
     <link rel="stylesheet" id="css-app-custom" href="../../assets/css/app-custom.css" />
+    <script src="../../ext-lib/sweetalert-master/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../ext-lib/sweetalert-master/dist/sweetalert.css">
 
 
     <!-- End Stylesheets -->
@@ -157,12 +159,20 @@ $rowinfo = $resultUserinfo->fetch();
           <div class="row">
             <div class="col-sm-6 text-left">
               <a href="../updateinfo/?username=<?php echo $rowinfo['username']; ?>" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">แก้ไขข้อมูลผู้ใช้</a>
-              <!-- <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;"></button> -->
-              <button type="button" name="button" class="btn btn-app-teal btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;">ระงับการใช้งาน</button>
-
+              <?php
+              if($rowinfo['active_status']=='Y'){
+                ?>
+                <button type="button" name="button" class="btn btn-app-teal btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;" onclick="redirect_conf3('../../controller/user-active.php?username=<?php echo $rowinfo['username']; ?>&to=N')">ระงับการใช้งาน</button>
+                <?php
+              }else{
+                ?>
+                <button type="button" name="button" class="btn btn-app-teal btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;" onclick="redirect_conf3('../../controller/user-active.php?username=<?php echo $rowinfo['username']; ?>&to=Y')">อนญาตการใช้งาน</button>
+                <?php
+              }
+              ?>
             </div>
             <div class="col-sm-6 text-right">
-              <button type="button" name="button" class="btn btn-app-red btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;">ลบบัญชีผู้ใช้นี้</button>
+              <button type="button" name="button" class="btn btn-app-red btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;" onclick="redirect_conf('../../controller/user-delete.php?username=<?php echo $rowinfo['username']; ?>')">ลบบัญชีผู้ใช้นี้</button>
             </div>
           </div>
           <div class="row" style="margin-top: 20px; font-size: 0.8em;">
@@ -655,7 +665,7 @@ $rowinfo = $resultUserinfo->fetch();
                                   สถานะ
                                 </th>
                                 <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                  โดย
+                                  Releted user
                                 </th>
                                 <th style="font-weight: bold; padding: 10px; font-size: 26px;">
                                   วันที่ปรับปรุงข้อมูล

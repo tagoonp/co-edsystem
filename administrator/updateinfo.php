@@ -59,7 +59,7 @@ $rowinfo = $resultUserinfo->fetch();
     <link rel="stylesheet" id="css-app" href="../../assets/css/app.css" />
     <link rel="stylesheet" id="css-app-custom" href="../../assets/css/app-custom.css" />
     <script src="../../ext-lib/sweetalert-master/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../ ext-lib/sweetalert-master/dist/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="../../ext-lib/sweetalert-master/dist/sweetalert.css">
 
     <!-- End Stylesheets -->
   </head>
@@ -159,19 +159,11 @@ $rowinfo = $resultUserinfo->fetch();
             <div class="col-sm-6 text-left">
               <a href="../userinfo/?username=<?php echo $rowinfo['username']; ?>" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">ย้อนกลับ</a>
               <!-- <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;"></button> -->
-              <button type="button" name="button" class="btn btn-app-teal btn-custom" <?php if($rowinfo['usertype_id']==1){ echo "disabled"; } ?> style="font-size: 22px; padding: 5px 10px 0px 10px;">ระงับการใช้งาน</button>
+              
 
             </div>
             <div class="col-sm-6 text-right">
-              <?php
-              if($rowinfo['usertype_id']==1){
 
-              }else{
-                ?>
-                <button type="button" name="button" class="btn btn-app-red btn-custom" onclick="redirect_conf('../../controller/user-delete.php?username=<?php print $rowinfo['username'];?>')" style="font-size: 22px; padding: 5px 10px 0px 10px;">ลบบัญชีผู้ใช้นี้</button>
-                <?php
-              }
-              ?>
 
             </div>
           </div>

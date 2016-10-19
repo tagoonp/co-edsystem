@@ -10,17 +10,22 @@ $sprefix = $db->getSessionPrefix();
 
 $strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.usertype_id = '1' AND a.active_status = 'Y'  ";
 $result = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
+$row = $result->fetch();
 
+if(!isset($_GET['pid'])){
 
-if(!$result){
-  // print $strSQL;
-  // exit();
-  header('Location: ../error/?type=1'); die();
-  die();
 }
 
-$row = $result->fetch();
-// $rowQn = $resultQn->fetch();
+$strSQL = "SELECT * FROM trs3_registration a INNER JOIN trs3_questioniar b on a.std_id = b.qn_studentid WHERE a.registration_id = ? AND a.confirm_status = ? ORDER BY a.registration_id ";
+$result = $db->select($strSQL, array($_GET['pid'], "N"));
+
+if(!$result){
+  echo $strSQL;
+  exit();
+  header('Location: ../error/?type=1'); die();
+}
+
+$row2 = $result->fetch();
 ?>
 
 <!DOCTYPE html>

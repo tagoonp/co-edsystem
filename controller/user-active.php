@@ -20,22 +20,22 @@ $db = new database();
 $db->connect();
 $sprefix = $db->getSessionPrefix();
 
-if(isset($_GET['username'])){
-  $strSQL = "DELETE FROM trs3_user WHERE username = ? ";
-  $result_account_delete = $db->select($strSQL, array($_GET['username']));
+if((isset($_GET['username'])) && (isset($_GET['to']))){
+  $strSQL = "UPDATE trs3_user SET active_status = ? WHERE username = ? ";
+  $result_account_delete = $db->select($strSQL, array($_GET['to'], $_GET['username']));
 
-  $strSQL = "DELETE FROM trs3_userinfo WHERE userinfo_username = ? ";
-  $result_accountinfo_delete = $db->select($strSQL, array($_GET['username']));
+  if($_GET['to']=='Y'){
+    $strSQL = "INSERT INTO trs3_usertransection (t_date, 	t_time, t_desc,		t_status, t_username, t_relateuser) VALUES (?, ?, ?, ?, ?, ?)";
+    $result_dept = $db->insert($strSQL, array( date('Y-m-d'), date('H:i:s'), 'อนุญาตการใช้งานบัญชี', 'Success', $_SESSION[$sprefix.'Username'], $_GET['username']));
+  }else{
+    $strSQL = "INSERT INTO trs3_usertransection (t_date, 	t_time, t_desc,		t_status, t_username, t_relateuser) VALUES (?, ?, ?, ?, ?, ?)";
+    $result_dept = $db->insert($strSQL, array( date('Y-m-d'), date('H:i:s'), 'ระงับการช้งานบัญชี', 'Success', $_SESSION[$sprefix.'Username'], $_GET['username']));
+  }
 
-  $strSQL = "UPDATE trs3_questioniar SET 	qn_adviceby = ? WHERE qn_adviceby = ?";
-  $result_accountinfo_delete = $db->select($strSQL, array($_SESSION[$sprefix.'Username']."-del-".date('Y-m-d'), $_SESSION[$sprefix.'Username']));
-
-  $strSQL = "INSERT INTO trs3_usertransection (t_date, 	t_time, t_desc,		t_status, t_username, t_relateuser) VALUES (?, ?, ?, ?, ?, ?)";
-  $result_dept = $db->insert($strSQL, array( date('Y-m-d'), date('H:i:s'), 'ลบบัญชีผู้ใช้', 'Success', $_SESSION[$sprefix.'Username'], $_GET['username']));
   ?>
   <script type="text/javascript">
     swal({
-      title: "ลบข้อมูลเรียบร้อย",
+      title: "แก้ไขสถานะเรียบร้อย",
       // text: "ไม่สามารถลบบัญชีผู้ใช้ได้",
       type: "success",
       showCancelButton: false,
@@ -43,7 +43,7 @@ if(isset($_GET['username'])){
       confirmButtonText: "ตกลง!",
       closeOnConfirm: false
     }, function(){
-      window.location = '../administrator/useraccount/';
+      window.history.back();
     });
   </script>
   <?php
@@ -52,8 +52,8 @@ if(isset($_GET['username'])){
   ?>
   <script type="text/javascript">
     swal({
-      title: "เกิดข้อผิดพลาด",
-      text: "ไม่สามารถลบบัญชีผู้ใช้ได้",
+      title: "แก้ไขสถานะผิดพลาด",
+      // text: "ไม่สามารถลบบัญชีผู้ใช้ได้",
       type: "error",
       showCancelButton: false,
       confirmButtonColor: "rgb(193, 33, 100)",

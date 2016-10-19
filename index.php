@@ -75,7 +75,7 @@ session_regenerate_id();
                                 <div class="container-fluid">
                                   <div class="row">
                                     <div class="col-sm-12 text-left">
-                                      <button class="btn btn-app" id="btnRecommand" data-toggle="modal" data-target="#modal-large" type="button">คำแนะนำ</button>
+                                      <button class="btn btn-app" id="btnRecommand" data-toggle="modal" data-target="#modal-large" type="button">ขั้นตอนกำรเข้าใช้ระบบ</button>
                                       <button type="button" name="button" class="btn btn-app-red" id="btnSignin">เข้าสู่ระบบ</button>
                                     </div>
                                   </div>
@@ -296,19 +296,19 @@ session_regenerate_id();
                               </div>
 
                               <h3 style="color: orange;">ข้อมูลการสมัครฝึกงาน</h3>
-                              <div class="form-group">
+                              <div class="form-group" style="display:none;">
                                 <div class="col-sm-12">
                                     <div class="form-material">
-                                      <input class="js-masked-date-dash form-control" type="text" id="txt-startdate" name="txt-startdate" placeholder="วว-ดด-ปปปป" />
+                                      <input class="js-masked-date-dash form-control" type="text" id="txt-startdate" name="txt-startdate" placeholder="วว-ดด-ปปปป" value="00-00-0000" />
                                       <label for="example-masked2-date2">ระยะวลาฝึกงาน ตั้งแต่วันที่ (ปี พ.ศ.) <span class="text-red">**</span></label>
                                     </div>
                                 </div>
                               </div>
 
-                              <div class="form-group">
+                              <div class="form-group" style="display:none;">
                                 <div class="col-sm-12">
                                   <div class="form-material">
-                                    <input class="js-masked-date-dash form-control" type="text" id="txt-enddate" name="txt-enddate" placeholder="วว-ดด-ปปปป" />
+                                    <input class="js-masked-date-dash form-control" type="text" id="txt-enddate" name="txt-enddate" placeholder="วว-ดด-ปปปป" value="00-00-0000" />
                                     <label for="example-masked2-date2">ถึงวันที่ (ปี พ.ศ.) <span class="text-red">**</span></label>
                                   </div>
                                 </div>
@@ -437,12 +437,12 @@ session_regenerate_id();
                               </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" style="display:none;">
                               <div class="col-sm-6">
                                 <div class="form-group">
                                   <div class="col-sm-12">
                                       <div class="form-material">
-                                        <input class="js-masked-date-dash form-control" type="text" id="txt-startdate2" name="txt-startdate2" placeholder="วว-ดด-ปปปป" />
+                                        <input class="js-masked-date-dash form-control" type="text" id="txt-startdate2" name="txt-startdate2" placeholder="วว-ดด-ปปปป" value="00-00-0000" />
                                         <label for="example-masked2-date2">ระยะวลาฝึกงาน ตั้งแต่วันที่ (ปี พ.ศ.) <span class="text-red">**</span></label>
                                       </div>
                                   </div>
@@ -452,7 +452,7 @@ session_regenerate_id();
                                 <div class="form-group">
                                   <div class="col-sm-12">
                                       <div class="form-material">
-                                        <input class="js-masked-date-dash form-control" type="text" id="txt-enddate2" name="txt-enddate2" placeholder="วว-ดด-ปปปป" />
+                                        <input class="js-masked-date-dash form-control" type="text" id="txt-enddate2" name="txt-enddate2" placeholder="วว-ดด-ปปปป" value="00-00-0000" />
                                         <label for="example-masked2-date2">ถึงวันที่ (ปี พ.ศ.) <span class="text-red">**</span></label>
                                       </div>
                                   </div>
@@ -552,7 +552,7 @@ session_regenerate_id();
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="card-header bg-green bg-inverse">
-                  <h4 style="background: transparent; font-weight: bold;">คำแนะนำในการสมัครฝึกงานภาคฤดูร้อน</h4>
+                  <h4 style="background: transparent; font-weight: bold;">ขั้นตอนการเข้าใช้ระบบใบสมัครฝึกงานภาคฤดูร้อน</h4>
                   <ul class="card-actions">
                       <li>
                           <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
@@ -562,14 +562,16 @@ session_regenerate_id();
               <div class="card-block" style="font-size: 24px;">
                 <h4 style="font-weight: bold; color: teal;">ข้อตกลง</h4>
                 <ol>
-                  <li>ผู้สมัครต้องทำการกรอกข้อมูลใน "ระบบสมัครฝึกงานภาคฤดูร้อน" โดยใช้รหัสนักศึกษาของตนเอง</li>
-                  <li>กรอกข้อมูลในแบบฟอร์มให้ครบถ้วน แล้วจึงทำการกดปุ่ม "บันทึกข้อมูล" </li>
-                  <li>เพิ่มเพิ่มข้อมูลในใบสมัครเรียบร้อยแล้ว ให้ทำการ "เข้าสู่ระบบ" ด้วย username และ password ซึ่งเป็นรหัสนักศึกษา และ<span style="color:red; font-weight: bold;">ให้ทำการเปลี่ยนรหัสผ่านทันที</span>  </li>
-                  <li>เมื่อข้อมูลครบถ้วนแล้ว ให้นักศึกษาทำการกด <span style="color:red; font-weight: bold;">"ยืนยันข้อมูล"</span> เพื่อเป็นการยืนยันข้อมูลชุดนั้นส่งไปยังอาจารญืผู้ดูแลรายวิชา</li>
+                  <li>นักศึกษาที่ประสงค์จะฝึกงานภาคฤดูร้อนต้องกรอกข้อมูลในระบบฯเท่านั้น และกรอกข้อมูลในช่องว่างให้ครบถ้วน หรือ กรอกข้อมูลในช่องที่มีสัญลักษณ์ <span style="color:red; font-weight: bold;">**</span></li>
+                  <li>กรอกข้อมูลให้ครบถ้วน แล้วจึงทำการกดปุ่ม "บันทึกข้อมูล" หลังจากบันทึกข้อมูลแล้วข้อมูลดังกล่าวจะไม่สามารถแก้ไขได้แล้ว</li>
+                  <li>หลังจำกระบบฯ เพิ่มใบสมัครเรียบร้อยแล้ว ระบบจะเข้ำสู่ระบบโดยอัตโนมัติ ให้นักศึกษาดำเนินการ<span style="color:red; font-weight: bold;">เปลี่ยนรหัสผ่านทันที</span>ซึ่งใช้ในการเข้ำสู่ระบบในครั้งถัดไป เพื่อติดตามสถานะใบสมัครฝึกงานภาคฤดูร้อนของนักศึกษาเอง</li>
+                  <li>ให้นักศึกษาตรวจสอบข้อมูลอีกครั้ง แล้วทำกำรกดปุ่ม <span style="color:red; font-weight: bold;">"ยืนยันข้อมูล"</span> เพื่อส่งไปยังอาจารย์ผู้ดูแลรายวิชา</li>
+                  <li>รอตรวจสอบสถานะใบสมัครจากระบบ</li>
                 </ol>
                 <h4 style="font-weight: bold; color: orange;">หมายเหตุ **</h4>
                 <ol>
-                  <li>นักศึกษาแต่ละคนสามารถเพิ่มข้อมูลในระบบได้เพียงคนละ 1 ครั้ง หากต้องการเพิ่มใหม่หรือแก้ไข ให้ทำการ "เข้าสู่ระบบ" เพิ่มทำการลบข้อมูลเก่าออกก่อน แล้วจึงจะทำการเพิ่มข้อมูลใหม่ได้</li>
+                  <li>หากนักศึกษำได้ทำการยืนยันข้อมูลในระบบแล้ว จะไม่สามารถแก้ไขข้อมูลได้อีก (ไม่ว่าในกรณีใดๆ ทั้งสิ้น)</li>
+                  <li>ข้อมูลที่ทำการบันทึกข้อมูลแล้วจะไม่สามารถแก้ไขข้อมูลได้ หากมีความจำเป็นที่จะต้องแก้ไขข้อมูล กรุณากดปุ่ม <span style="color:red; font-weight: bold;">"ลบข้อมูลชุดนี้" ก่อนทำการ "ยืนยันข้อมูล"</span> และกรอกข้อมูลใหม่ทั้งหมดอีกครั้ง </li>
                 </ol>
               </div>
               <div class="modal-footer">
