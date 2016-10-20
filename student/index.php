@@ -116,8 +116,8 @@ $rowQn = $resultQn->fetch();
                 <?php
               }
               ?>
-
-              <button type="button" name="button" class="btn btn-app-blue"  style="font-size: 20px;" onclick="redirect_conf('#')"><i class="fa fa-print"></i> Print</button>
+              <a href="./application-print.php?std_id=<?php print $_SESSION[$sprefix.'Username']; ?>" class="btn btn-app-blue" style="font-size: 20px;" target="_blank"><i class="fa fa-print"></i> ตัวอย่างก่อนพิมพ์</a>
+              <!-- <button type="button" name="button" class="btn btn-app-blue"  style="font-size: 20px;" onclick="redirect_conf('#')"><i class="fa fa-print"></i> Print</button> -->
             </div>
           </div>
         </div>
@@ -153,8 +153,42 @@ $rowQn = $resultQn->fetch();
 
         <div class="col-sm-12" style="padding-top: 20px;" id="loginPane">
 
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header bg-teal bg-inverse">
+                    <h4>สถานะการตอบกลับจากอาจารย์ผู้ดูแลรายวิชา</h4>
+                </div>
+                <div class="card-block">
+                    <p style="font-size: 0.8em;">
+                      <span style="font-weight: bold;">ความเห็นอาจารย์ผู้รับผิดชอบนึกศึกษาฝึกงานของภาควิชา :</span>
+                      <?php
+                      if($rowQn['qn_advicestatus']=='Waiting'){
+                        echo '<span style="color: rgb(156, 156, 156);">รอการตอบรับ</span>';
+                      }else if($rowQn['qn_advicestatus']=='Agree'){
+                        echo '<span style="color: rgb(7, 140, 104);">เห็นสมควร</span>';
+                      }else if($rowQn['qn_advicestatus']=='Otheragree'){
+                        echo '<span style="color: rgb(255, 115, 0);">ความเห็นอื่นๆ</span>';
+                      }else{
+                        echo "ไม่อนุมัติ";
+                      }
+                      ?>
+                      <br>
+                      <span style="font-weight: bold;">รายละเอียด :</span> <?php
+                      if($rowQn['qn_advicestatusinfo']==""){
+                        echo "ไม่ระบุ";
+                      }else{
+                        echo $rowQn['qn_advicestatusinfo'];
+                      }
+                      ?>
+                    </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="card">
+
                                   <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
                                       <li class="active">
                                           <a href="#btabs-alt-static-home">ใบสมัครฝึกงานภาคฤดูร้อน</a>

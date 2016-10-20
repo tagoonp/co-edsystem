@@ -92,7 +92,7 @@ $rowinfo = $resultUserinfo->fetch();
                                 <li class="dropdown">
                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="color: #fff;"><?php echo $row['userinfo_prefix'].$row['userinfo_fname']." ".$row['userinfo_lname']; ?> <span class="caret"></span></a>
                                   <ul class="dropdown-menu" style="font-size: 20px;">
-                                    <li><a href="./changepassword/">เปลี่ยนรหัสผ่าน</a></li>
+                                    <li><a href="../changepassword/">เปลี่ยนรหัสผ่าน</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="../../signout.php">ออกจากระบบ</a></li>
                                   </ul>
@@ -131,7 +131,7 @@ $rowinfo = $resultUserinfo->fetch();
                           </li>
 
                           <li>
-                              <a href="./participant/" style="font-weight: 300;"><i class="ion-android-done-all"></i> ผู้สมัครที่ผ่านการดำเนินการแล้ว</a>
+                              <a href="../participant-all/" style="font-weight: 300;"><i class="ion-android-done-all"></i> ผู้สมัครที่ผ่านการดำเนินการแล้ว</a>
                           </li>
 
                       </ul>
@@ -159,7 +159,7 @@ $rowinfo = $resultUserinfo->fetch();
             <div class="col-sm-6 text-left">
               <a href="../userinfo/?username=<?php echo $rowinfo['username']; ?>" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">ย้อนกลับ</a>
               <!-- <button type="button" name="button" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;"></button> -->
-              
+
 
             </div>
             <div class="col-sm-6 text-right">

@@ -125,7 +125,7 @@ $row = $result->fetch();
                           </li>
 
                           <li>
-                              <a href="./participant/" style="font-weight: 300;"><i class="ion-android-done-all"></i> ผู้สมัครที่ผ่านการดำเนินการแล้ว</a>
+                              <a href="./participant-all/" style="font-weight: 300;"><i class="ion-android-done-all"></i> ผู้สมัครที่ผ่านการดำเนินการแล้ว</a>
                           </li>
 
                       </ul>

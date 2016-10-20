@@ -75,7 +75,7 @@ session_regenerate_id();
                                 <div class="container-fluid">
                                   <div class="row">
                                     <div class="col-sm-12 text-left">
-                                      <button class="btn btn-app" id="btnRecommand" data-toggle="modal" data-target="#modal-large" type="button">ขั้นตอนกำรเข้าใช้ระบบ</button>
+                                      <button class="btn btn-app" id="btnRecommand" data-toggle="modal" data-target="#modal-large" type="button">ขั้นตอนการเข้าใช้ระบบ</button>
                                       <button type="button" name="button" class="btn btn-app-red" id="btnSignin">เข้าสู่ระบบ</button>
                                     </div>
                                   </div>
@@ -499,12 +499,6 @@ session_regenerate_id();
                             </div>
                           </div>
                           <!-- End container -->
-
-
-
-                          <div class="form-group">
-
-                          </div>
 
 
                       </div>

@@ -77,3 +77,13 @@ function redirect_conf_del(url){
 function redirect_conf_confirm(url){
   swal({   title: "คุณแน่ใจหรือไม่?",   text: "เมื่อคุณยืนยันแล้ว การแจ้งสมัครฝึกงานจะไม่สามารถแก้ไขได้อีกจนกว่าจะมีผลตอบรับจากอาจารย์ที่ปรึกษารายวิชาฝึกงาน",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "ตกลง!",   cancelButtonText: "ยกเลิก!",   closeOnConfirm: false }, function(){ window.location = url; });
 }
+
+function printForm(divName){
+  // window.print(formID);
+    // $('#'+divName).css('font-size', '0.8em');
+  var printContents = document.getElementById(divName).innerHTML;
+var originalContents = document.body.innerHTML;
+document.body.innerHTML = printContents;
+window.print();
+document.body.innerHTML = originalContents;
+}

@@ -8,12 +8,14 @@ RewriteBase /coedsystem/
 
 RewriteRule ^signin/$ signin.php    [NC,L]
 RewriteRule ^administrator/participant/$ administrator/participant.php    [NC,L]
+RewriteRule ^administrator/participant-all/$ administrator/participant-all.php    [NC,L]
 RewriteRule ^administrator/useraccount/$ administrator/useraccount.php    [NC,L]
 RewriteRule ^administrator/userinfo/$ administrator/userinfo.php    [NC,L]
 RewriteRule ^administrator/updateinfo/$ administrator/updateinfo.php    [NC,L]
 RewriteRule ^administrator/adduser/$ administrator/adduser.php    [NC,L]
 RewriteRule ^administrator/changepassword/$ administrator/changepassword.php    [NC,L]
 RewriteRule ^administrator/applicationinfo/$ administrator/application-info.php    [NC,L]
+RewriteRule ^administrator/applicationinfo-all/$ administrator/application-info-all.php    [NC,L]
 
 
 RewriteRule ^administrator/applicationinfo/$ administrator/application-into.php    [NC,L]
