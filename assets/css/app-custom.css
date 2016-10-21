@@ -4,6 +4,29 @@
     src: url('../fonts/THSarabunNew.ttf');
     font-size: 2em;
 }
+
+@font-face {
+    font-family: 'THSarabanNewBold';
+    src: url('../fonts/THSarabunNew Bold.ttf');
+    font-size: 2em;
+}
+
+.th-font-bold{
+  font-family: "THSarabanNewBold", Helvetica, Arial, sans-serif;
+  /*font-weight: 100;*/
+  font-size: 30px;
+  letter-spacing: 0px;
+}
+
+.fx18{
+  font-size: 18px;
+}
+
+#pTable tr td{
+  padding: 0px 10px 0px 0px;
+}
+
+
 .radioDiv{
   padding-bottom: 10px;
 }

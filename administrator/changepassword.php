@@ -118,14 +118,7 @@ $row = $result->fetch();
               <div class="row">
                 <div class="col-sm-5 col-sm-offset-3" style="padding: 30px;">
                   <form class="changepwdform form-horizontal m-t-sm" action="base_forms_samples.html" method="post" onsubmit="return false;">
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <div class="form-material">
-                                <input class="form-control" type="email" id="register2-email" name="register2-email" placeholder="Enter email..." />
-                                <label for="register2-email">อีเมลที่ได้ลงทะเบียนกับระบบไว้ <span class="text-red">**</span></label>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <!-- <div class="form-group">
                         <div class="col-xs-12">
                             <div class="form-material">

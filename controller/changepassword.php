@@ -14,8 +14,8 @@ if(isset($_SESSION[$sprefix.'ID'])){
 
     // $hashPWD = hash_hmac('md5', $_POST['oldpwd'], $salt);
 
-    $strSQL = "SELECT * FROM trs3_user a inner join trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.email = ?";
-    $result_account = $db->select($strSQL, array($_SESSION[$sprefix.'Username'], $_POST['email']));
+    $strSQL = "SELECT * FROM trs3_user a inner join trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? ";
+    $result_account = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
 
     if($result_account){
 

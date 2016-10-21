@@ -38,7 +38,7 @@ $row = $result->fetch();
     <link rel="icon" href="../assets/img/favicons/favicon.ico" />
 
     <!-- Google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Kanit:200,300,400,500" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Kanit:200,300,400,500" rel="stylesheet"> -->
 
     <!-- Page JS Plugins CSS -->
     <link rel="stylesheet" href="../assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css" />
@@ -74,195 +74,225 @@ $row = $result->fetch();
               <div class="row">
                 <div class="col-sm-12">
                   <div class="text-center">
-                    <h3 style="font-weight: 400; font-weight: bold;">ใบสมัครฝึกงานภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>ภาควิชาฟิสิกส์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์</h3>
+                    <h3 style="font-size: 20px" class="th-font-bold">ใบสมัครฝึกงานภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>ภาควิชาฟิสิกส์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์</h3>
                   </div>
-                  <div class="text-right" style="font-size: 0.8em;">
+                  <div class="text-right" style="font-size: 16px;">
                     <strong>วันที่</strong> <?php echo $row['reg_date']; ?>
                   </div>
                 </div>
               </div>
-              <table class="table table-condensed table-borderless" style="font-size: 0.6em;">
+              <table class="table table-condensed table-borderless" id="pTable" style="font-size: 18px;">
                 <tr>
-                  <td style="padding: 0px;">
+                  <td style="width: 10%;">
                     (1)
                   </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ชื่อ - สกุล (ภาษาไทย)</strong> <?php echo $row['std_fullname_th']; ?> <br>
-                    <strong style="font-weight: bold;">ชื่อ - สกุล (ภาษาอังกฤษ)</strong> <?php echo $row['std_fullname_en']; ?><br>
-                    <strong style="font-weight: bold;">รหัสนักศึกษา</strong> <?php echo $row['std_id']; ?>
+                  <td style="width: 30%;">
+                    <strong class="th-font-bold fx18">ชื่อ - สกุล (ภาษาไทย)</strong>
                   </td>
+                  <td >
+                    <?php echo $row['std_fullname_th']; ?>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td ><strong class="th-font-bold fx18">ชื่อ - สกุล (ภาษาอังกฤษ)</strong></td>
+                  <td><?php echo $row['std_fullname_en']; ?></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">รหัสนักศึกษา</strong></td>
+                  <td><?php echo $row['std_id']; ?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
+                  <td>
                     (2)
                   </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">วัน/เดือน/ปีเกิด</strong> <?php $b = explode('-', $row['dob']); echo $b[2] . "/" . $b[1] . "/" . (intval($b[0]) + 543);?>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-weight: bold;">อายุ</strong> <?php echo $row['age']; ?>
+                  <td>
+                    <strong class="th-font-bold fx18">วัน/เดือน/ปีเกิด</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+                  </td>
+                  <td>
+                    <?php $b = explode('-', $row['dob']); echo $b[2] . "/" . $b[1] . "/" . (intval($b[0]) + 543);?>
                   </td>
                 </tr>
-
                 <tr>
-                  <td style="padding: 0px;">
-
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ศาสนา</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <strong style="font-weight: bold;">สัญชาติ</strong> <?php echo $row['nation']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-weight: bold;">เชื้อชาติ</strong> <?php echo $row['race']; ?>
-                  </td>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">อายุ</strong></td>
+                  <td><?php echo $row['age']; ?> ปี</td>
                 </tr>
-
                 <tr>
-                  <td style="padding: 0px;">
-
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">โรคประจำตัว</strong>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">ศาสนา</strong></td>
+                  <td>
                     <?php
-                    $strSQL = "SELECT * FROM trs3_disease WHERE di_regid = ?  ";
-                    $result2 = $db->select($strSQL, array($row['registration_id']));
+                    switch ($row['rel']) {
+                      case '1':
+                        echo "พุทธ";
+                        break;
+                        case '2':
+                          echo "คริส";
+                          break;
+                          case '3':
+                            echo "อิสลาม";
+                            break;
+                            case '4':
+                              echo "ฮินดู";
+                              break;
 
-                    if($result2){
-                      $c = 1;
-                      $check = 0;
-                      foreach ($result2 as $value) {
-                        if($value['di_desc']!=''){
-                          echo $c;
-                          echo ') ';
-                          echo $value['di_desc']."&nbsp;&nbsp;&nbsp;&nbsp;";
-                          $c++;
-                          $check++;
-                        }
-                      }
-
-                      if($check==0){
-                        print "ไม่มี";
-                      }
-                    }else{
-                      print "-";
+                      default:
+                        echo "อื่นๆ";
+                        break;
                     }
                     ?>
                   </td>
                 </tr>
+                <tr>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">สัญชาติ</strong></td>
+                  <td><?php echo $row['nation']; ?></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">เชื้อชาติ</strong></td>
+                  <td><?php echo $row['race']; ?></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">โรคประจำตัว</strong></td>
+                  <td><?php
+                  $strSQL = "SELECT * FROM trs3_disease WHERE di_regid = ?  ";
+                  $result2 = $db->select($strSQL, array($row['registration_id']));
+
+                  if($result2){
+                    $c = 1;
+                    $check = 0;
+                    foreach ($result2 as $value) {
+                      if($value['di_desc']!=''){
+                        echo $c;
+                        echo ') ';
+                        echo $value['di_desc']."&nbsp;&nbsp;&nbsp;&nbsp;";
+                        $c++;
+                        $check++;
+                      }
+                    }
+
+                    if($check==0){
+                      print "ไม่มี";
+                    }
+                  }else{
+                    print "-";
+                  }
+                  ?></td>
+                </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-
+                  <td></td>
+                  <td>
+                    <strong class="th-font-bold fx18">โทรศัพท์</strong>
                   </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">โทรศัพท์</strong> <?php echo $row['phone']; ?> &nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-weight: bold;">email</strong> <?php echo $row['email']; ?>
+                  <td><?php echo $row['phone']; ?></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">email</strong></td>
+                  <td>
+                     <?php echo $row['email']; ?>
                   </td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-                    (3)
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ที่อยู่ปัจจุบัน</strong> <?php echo $row['address']; ?>
-                  </td>
+                  <td>(3)</td>
+                  <td><strong class="th-font-bold fx18">ที่อยู่ปัจจุบัน</strong></td>
+                  <td><?php echo $row['address']; ?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-                    (4)
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ประวัติการศึกษา เกรดเฉลี่ย</strong> <?php echo $row['gpa']; ?>
-                  </td>
+                  <td>(4)</td>
+                  <td><strong class="th-font-bold fx18">ประวัติการศึกษา เกรดเฉลี่ย</strong></td>
+                  <td><?php echo $row['gpa']; ?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-                    (5)
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">บุคคลที่สามารถติดต่อได้กรณีเร่งด่วน</strong>
-                  </td>
+                  <td>(5)</td>
+                  <td><strong class="th-font-bold fx18">บุคคลที่สามารถติดต่อได้กรณีเร่งด่วน</strong></td>
+                  <td><?php echo $row['ergen_person']; ?></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">เกี่ยวข้องเป็น</strong></td>
+                  <td><?php echo $row['ergen_relation']; ?></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">หมายเลขโทรศัพท์</strong></td>
+                  <td><?php echo $row['ergen_phone']; ?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ชื่อ - สกุล</strong> <?php echo $row['ergen_person']; ?>
-                  </td>
+                  <td>(6)</td>
+                  <td><strong class="th-font-bold fx18">ลักษณะงาน</strong></td>
+                  <td><?php echo $row['job_attr']; ?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">เกี่ยวข้องเป็น</strong> <?php echo $row['ergen_relation']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-weight: bold;">หมายเลขโทรศัพท์</strong> <?php echo $row['ergen_phone']; ?>
-                  </td>
+                  <td></td>
+                  <td><strong class="th-font-bold fx18">ประเภทงาน</strong></td>
+                  <td><?php echo $row['job_type']; ?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-                    (6)
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ลักษณะงาน</strong> <?php echo $row['job_attr']; ?>
-                    <br>
-                    <strong style="font-weight: bold;">ประเภทงาน</strong> <?php echo $row['job_type']; ?>
-                  </td>
+                  <td>(7)</td>
+                  <td><strong class="th-font-bold fx18">การมีส่วนร่วมในกิจกรรมทั้งในและนอกมหาวิทยาลัย นอกเนือจากการเรียนปกติ</strong></td>
+                  <td>
+                  <?php if(($row['act_1']=='') && ($row['act_2']=='') && ($row['act_3']=='') && ($row['act_4']=='')){ echo "ไม่ระบุ"; } ?>
+                  <?php if($row['act_1']!=''){ echo '1) '; echo $row['act_1']; } ?>&nbsp;&nbsp;
+                  <?php if($row['act_2']!=''){ echo '2) '; echo $row['act_2']; } ?>&nbsp;&nbsp;
+                  <?php if($row['act_3']!=''){ echo '3) '; echo $row['act_3']; } ?>&nbsp;&nbsp;
+                  <?php if($row['act_4']!=''){ echo '4) '; echo $row['act_4']; } ?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-                    (7)
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">การมีส่วนร่วมในกิจกรรม ทั้งในและนอกมหาวิทยาลัย นอกเนือจากการเรียนปกติ</strong><br>
-                    <?php if($row['act_1']!=''){ echo '1) '; echo $row['act_1']; } ?>&nbsp;&nbsp;
-                    <?php if($row['act_2']!=''){ echo '2) '; echo $row['act_2']; } ?>&nbsp;&nbsp;
-                    <?php if($row['act_3']!=''){ echo '3) '; echo $row['act_3']; } ?>&nbsp;&nbsp;
-                    <?php if($row['act_4']!=''){ echo '4) '; echo $row['act_4']; } ?>
-                  </td>
+                  <td>(8)</td>
+                  <td><strong class="th-font-bold fx18">ความสามารถทางด้านภาษา ทักษะการสื่อสารภาษาอังกฤษ</strong></td>
+                  <td><?php
+                    switch ($row['eng_skill']) {
+                      case '1':
+                        echo "ดี";
+                        break;
+                      case '2':
+                        echo "ปานกลาง";
+                        break;
+                      case '3':
+                        echo "พอใช้";
+                        break;
+                      default:
+                        echo "ไม่ระบุ";
+                        break;
+                    }?></td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 0px;">
-                    (8)
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ความสามารถทางด้านภาษา ทักษะการสื่อสารภาษาอังกฤษ</strong>
-                    <?php
-                      switch ($row['eng_skill']) {
-                        case '1':
-                          echo "ดี";
-                          break;
-                        case '2':
-                          echo "ปานกลาง";
-                          break;
-                        case '3':
-                          echo "พอใช้";
-                          break;
-                        default:
-                          echo "ไม่ระบุ";
-                          break;
-                      }?>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td style="padding: 0px;">
-                    (9)
-                  </td>
-                  <td style="padding: 0px;">
-                    <strong style="font-weight: bold;">ความสามารถด้านคอมพิวเตอร์</strong><br>
-                    <?php if($row['com_skill_1']!=''){ echo '1) '; echo $row['com_skill_1']; } ?>&nbsp;&nbsp;
-                    <?php if($row['com_skill_2']!=''){ echo '2) '; echo $row['com_skill_2']; } ?>&nbsp;&nbsp;
-                    <?php if($row['com_skill_3']!=''){ echo '3) '; echo $row['com_skill_3']; } ?>
-                  </td>
+                  <td>(9)</td>
+                  <td><strong class="th-font-bold fx18">ความสามารถด้านคอมพิวเตอร์</strong></td>
+                  <td>
+                  <?php if(($row['com_skill_1']=='') && ($row['com_skill_2']=='') && ($row['com_skill_3']=='')){ echo "ไม่ระบุ"; } ?>
+                  <?php if($row['com_skill_1']!=''){ echo '1) '; echo $row['com_skill_1']; } ?>&nbsp;&nbsp;
+                  <?php if($row['com_skill_2']!=''){ echo '2) '; echo $row['com_skill_2']; } ?>&nbsp;&nbsp;
+                  <?php if($row['com_skill_3']!=''){ echo '3) '; echo $row['com_skill_3']; } ?></td>
                 </tr>
 
               </table>
             </div>
+
+            <div class="row">
+              <div class="col-sm-12 text-right" style="font-size: 18px;">
+                ลงนาม ................................................................<br>
+                (.....................................................................)
+              </div>
+            </div>
           </div>
           <!-- End row -->
+
         </div>
         <!-- End col-sm-12 -->
       </div>

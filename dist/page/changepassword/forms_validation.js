@@ -21,10 +21,6 @@ var BaseFormValidation = function() {
                 jQuery(e).closest( '.help-block' ).remove();
             },
             rules: {
-                'register2-email': {
-                  required: true,
-                  email: true
-                },
                 'register2-password': {
                   required: true
                 },
@@ -37,10 +33,6 @@ var BaseFormValidation = function() {
                 }
             },
             messages: {
-							'register2-email': {
-								required: 'กรุณากรอกอีเมลแอดเดรสที่ได้ลงข้อมูลไว้',
-								email: 'กรุณากรอกอีเมลให้ถูกต้อง'
-							},
 							'register2-password': {
 								required: 'กรุณากรอกรหัสผ่านเดิม'
 							},

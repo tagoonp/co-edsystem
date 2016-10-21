@@ -30,7 +30,8 @@ $(function(){
             confirmButtonText: "ตกลง",
             closeOnConfirm: false
           }, function(){
-            window.location = '../../student/';
+            // window.location = '../../student/';
+            window.history.back();
           });
         }else if(data=='Session timeout!'){
           swal({
@@ -42,7 +43,8 @@ $(function(){
             confirmButtonText: "Yes, delete it!",
             closeOnConfirm: false
           }, function(){
-            window.location = '../../signout.php';
+            // window.location = '../../signout.php';
+            window.history.back();
           });
         }else{
           swal({
@@ -54,7 +56,8 @@ $(function(){
             confirmButtonText: "ตกลง!",
             closeOnConfirm: false
           }, function(){
-            window.location = '../../student/';
+            // window.location = '../../student/';
+            window.history.back();
           });
         }
       });
