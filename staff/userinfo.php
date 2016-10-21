@@ -138,12 +138,6 @@ $rowinfo = $resultUserinfo->fetch();
                       </ul>
                     </li>
 
-                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
-
-                    <li class="nav-item active">
-                        <a href="../useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
-                    </li>
-
                     <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>
 
                     <li class="nav-item">
@@ -409,7 +403,16 @@ $rowinfo = $resultUserinfo->fetch();
                                                               <div class="col-sm-1">
                                                                 <span class="cont-title2">(6)</span>
                                                               </div>
-                                                              <div class="col-sm-11">
+                                                              <div class="col-sm-6">
+                                                                <span class="cont-title2">ระยะเวลาฝึกงานตั้งแต่วันที่</span> <?php echo $row['train_start']; ?>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                <span class="cont-title2">ถึงวันที่</span> <?php echo $row['train_end']; ?>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                              <div class="col-sm-11 col-sm-offset-1">
                                                                 <span class="cont-title2">ลักษณะงาน</span>  <?php if($row['job_attr']!=''){ echo $row['job_attr']; }else{ echo "-"; } ?>
                                                               </div>
                                                             </div>
@@ -555,7 +558,21 @@ $rowinfo = $resultUserinfo->fetch();
                                                                   </table>
 
                                                                   <div class="" style="font-size: 24px;">
-                                                                    
+                                                                    <div class="row">
+                                                                      <div class="col-sm-12">
+                                                                        <span class="cont-title2">ระยะเวลาฝึกงานตั้งแต่วันที่</span> <?php echo $rowQn['qn_start']; ?> <span class="cont-title2">ถึงวันที่</span> <?php echo $rowQn['qn_end']; ?>
+                                                                      </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                      <div class="col-sm-12">
+                                                                        <span style="color:red;">* </span> หากไม่ระบุวันฝึกงาน ให้ใช้วันที่ภาควิชากำหนด
+                                                                        (ภาคฤดูร้อนไม่น้อยกว่า 6 สัปดาห์ ฯ ละไม่ต่ำกว่า 25 ชั่วโมง)<br>
+                                                                        <span style="color:red;">** </span> กรณีฝึกที่เดียวกันหลายคนให้ใช้ช่วงเวลาฝึกเดียวกัน
+                                                                      </div>
+                                                                    </div>
+
+                                                                    <hr>
 
                                                                     <div class="row">
                                                                       <div class="col-sm-12">

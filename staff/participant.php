@@ -8,7 +8,7 @@ $db = new database();
 $db->connect();
 $sprefix = $db->getSessionPrefix();
 
-$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.usertype_id = '1' AND a.active_status = 'Y'  ";
+$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.active_status = 'Y'  ";
 $result = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
 
 
@@ -128,12 +128,6 @@ $row = $result->fetch();
                           </li>
 
                       </ul>
-                    </li>
-
-                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
-
-                    <li class="nav-item ">
-                        <a href="../useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
                     </li>
 
                     <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>

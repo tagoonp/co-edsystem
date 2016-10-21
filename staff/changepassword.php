@@ -8,21 +8,23 @@ $db = new database();
 $db->connect();
 $sprefix = $db->getSessionPrefix();
 
-$strSQL = "SELECT * FROM trs3_registration WHERE std_id = ?  ORDER BY registration_id ";
+$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ?  AND a.active_status = 'Y'  ";
 $result = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
 
-$strSQL = "SELECT * FROM trs3_department WHERE tmp_std_id = ?";
-$resultDept = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
-
-$strSQL = "SELECT * FROM trs3_questioniar WHERE qn_studentid = ?";
-$resultQn = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
 
 if(!$result){
   header('Location: ../error/?type=1'); die();
+  die();
 }
 
 $row = $result->fetch();
-$rowQn = $resultQn->fetch();
+
+// if(!$result){
+//   header('Location: ../error/?type=1'); die();
+// }
+
+// $row = $result->fetch();
+// $rowQn = $resultQn->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +79,7 @@ $rowQn = $resultQn->fetch();
                             <div id="navbar" class="navbar-collapse collapse" style="margin-top: 17px;">
                               <ul class="nav navbar-nav navbar-right" >
                                 <li class="dropdown">
-                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="color: #fff;"><?php echo $row['std_fullname_en']; ?> <span class="caret"></span></a>
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="color: #fff;"><?php echo $row['userinfo_prefix'].$row['userinfo_fname']." ".$row['userinfo_lname']; ?> <span class="caret"></span></a>
                                   <ul class="dropdown-menu" style="font-size: 20px;">
                                     <li><a href="../changepassword/">เปลี่ยนรหัสผ่าน</a></li>
                                     <li role="separator" class="divider"></li>
@@ -99,7 +101,7 @@ $rowQn = $resultQn->fetch();
         <div class="col-sm-12">
           <div style="padding: 20px 0px 0px 0px;">
             <div class="text-left">
-              <button type="button" name="button" class="btn btn-app-teal" style="font-size: 20px;" onclick="redirect('../../student/')"><i class="fa fa-home"></i> กลับสู่หน้าหลัก</button>
+              <button type="button" name="button" class="btn btn-app-teal" style="font-size: 20px;" onclick="redirect('../../staff/')"><i class="fa fa-home"></i> กลับสู่หน้าหลัก</button>
             </div>
           </div>
         </div>
@@ -116,6 +118,16 @@ $rowQn = $resultQn->fetch();
               <div class="row">
                 <div class="col-sm-5 col-sm-offset-3" style="padding: 30px;">
                   <form class="changepwdform form-horizontal m-t-sm" action="base_forms_samples.html" method="post" onsubmit="return false;">
+
+                    <!-- <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="form-material">
+                                <input class="form-control" type="password" id="register2-password" name="register2-password" placeholder="Enter password..." />
+                                <label for="register2-password">รหัสผ่านเดิม <span class="text-red">**</span></label>
+                            </div>
+                        </div>
+                    </div> -->
+
                     <div class="form-group">
                         <div class="col-xs-12">
                             <div class="form-material">

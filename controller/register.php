@@ -109,7 +109,8 @@ $result = $db->insert($strSQL, array(
 
     if(!$result_account){
       // print "Y1";
-      $salt = 'W54mnFMEVPcHLiDQwbwG44#is0Sr*dkxX';
+      // $salt = 'W54mnFMEVPcHLiDQwbwG44#is0Sr*dkxX';
+      $salt = $db->getSaltkey();
       $pwd = hash_hmac('md5', $_POST['txt-stdid'], $salt);
 
       $strSQL = "INSERT INTO trs3_user VALUES (?, ?, ?, ?, ?, ?)";

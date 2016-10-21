@@ -18,49 +18,52 @@ $(function(){
 
   $('.changepwdform').submit(function(){
     if(($('#register2-email').val()!='')  && ($('#register2-password2').val()!='') && ($('#register2-password3').val()!='')){
-      var jqxhr = $.post( "../../controller/changepassword.php", { email: $('#register2-email').val(), newpwd:$('#register2-password2').val(), newpwd2: $('#register2-password3').val()});
-      jqxhr.always(function(data){
-        if(data=='Y'){
-          swal({
-            title: "เปลี่ยนรหัสผ่านเรียบร้อย",
-            text: 'กด "ตกลง" เพื่อกลับสู่หน้าหลัก!',
-            type: "success",
-            showCancelButton: false,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "ตกลง",
-            closeOnConfirm: false
-          }, function(){
-            // window.location = '../../student/';
-            window.history.back();
-          });
-        }else if(data=='Session timeout!'){
-          swal({
-            title: "Session timeout!",
-            text: "กรุณาลองใหม่!",
-            type: "error",
-            showCancelButton: false,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-          }, function(){
-            // window.location = '../../signout.php';
-            window.history.back();
-          });
-        }else{
-          swal({
-            title: "เกิดข้อผิดพลาด!",
-            text: "ข้อมูลไม่ถูกต้อง!",
-            type: "error",
-            showCancelButton: false,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "ตกลง!",
-            closeOnConfirm: false
-          }, function(){
-            // window.location = '../../student/';
-            window.history.back();
-          });
-        }
-      });
+      if($('#register2-password2').val()==$('#register2-password3').val()){
+        var jqxhr = $.post( "../../controller/changepassword.php", { email: $('#register2-email').val(), newpwd:$('#register2-password2').val(), newpwd2: $('#register2-password3').val()});
+        jqxhr.always(function(data){
+          if(data=='Y'){
+            swal({
+              title: "เปลี่ยนรหัสผ่านเรียบร้อย",
+              text: 'กด "ตกลง" เพื่อกลับสู่หน้าหลัก!',
+              type: "success",
+              showCancelButton: false,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "ตกลง",
+              closeOnConfirm: false
+            }, function(){
+              // window.location = '../../student/';
+              window.history.back();
+            });
+          }else if(data=='Session timeout!'){
+            swal({
+              title: "Session timeout!",
+              text: "กรุณาลองใหม่!",
+              type: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, delete it!",
+              closeOnConfirm: false
+            }, function(){
+              // window.location = '../../signout.php';
+              window.history.back();
+            });
+          }else{
+            swal({
+              title: "เกิดข้อผิดพลาด!",
+              text: "ข้อมูลไม่ถูกต้อง!",
+              type: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "ตกลง!",
+              closeOnConfirm: false
+            }, function(){
+              // window.location = '../../student/';
+              window.history.back();
+            });
+          }
+        });
+      }
+
     }
   });
 });

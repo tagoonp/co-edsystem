@@ -115,8 +115,8 @@ $row = $result->fetch();
                     <!-- <li class="nav-item">
                         <a href="./participant/" style="font-weight: 300;"><i class="ion-ios-monitor-outline"></i> รายการผู้สมัคร</a>
                     </li> -->
-                    <li class="nav-item nav-item-has-subnav active">
-                      <a href="javascript:void(0)" style="font-weight: 300;" id="asd"><i class="ion-ios-monitor-outline"></i> รายการผู้สมัคร</a>
+                    <li class="nav-item nav-item-has-subnav">
+                      <a href="javascript:void(0)" style="font-weight: 300;"><i class="ion-ios-monitor-outline"></i> รายการผู้สมัคร</a>
                       <ul class="nav nav-subnav">
 
                           <li>
@@ -128,12 +128,6 @@ $row = $result->fetch();
                           </li>
 
                       </ul>
-                    </li>
-
-                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
-
-                    <li class="nav-item ">
-                        <a href="../useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
                     </li>
 
                     <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>
@@ -148,12 +142,16 @@ $row = $result->fetch();
 
         </div>
         <div class="col-sm-9" style="padding-top: 0px;" id="loginPane">
-
-          <div class="row" style="margin-top: 0px;">
+          <div class="row">
+            <div class="col-sm-12 text-left">
+              <a href="../adduser/" class="btn btn-app-teal btn-custom" style="font-size: 22px; padding: 5px 10px 0px 10px;">เพิ่มบัญชีผู้ใช้งาน</a>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 20px;">
             <div class="col-sm-12">
               <div class="card">
                 <div class="card-header bg-blue bg-inverse">
-                    <h4 style="background: transparent; font-weight: bold;">รายการผู้ยื่นคำขอ</h4>
+                    <h4 style="background: transparent; font-weight: bold;">บัญชีผู้ใช้งาน</h4>
                 </div>
                 <div class="card-block">
                   <table class="table table-bordered table-striped table-vcenter js-dataTable-full table-header-bg">
@@ -169,7 +167,7 @@ $row = $result->fetch();
                     </thead>
                     <tbody class="wizardTbd">
                       <?php
-                      $strSQL = "SELECT * FROM trs3_registration a inner join trs3_questioniar b on a.std_id = b.qn_studentid WHERE b.qn_advicestatus = 'Waiting' ORDER BY a.registration_id LIMIT 0, 1000";
+                      $strSQL = "SELECT * FROM trs3_user a inner join trs3_userinfo b on a.username = b.userinfo_username WHERE 1 ORDER BY a.reg_date LIMIT 0, 1000";
                       $result = $db->select($strSQL, array("N"));
                       if($result){
                         // $row = $result->fetch();
@@ -179,18 +177,50 @@ $row = $result->fetch();
                           ?>
                           <tr>
                               <td class="text-center"><?php echo $c; $c++; ?></td>
-                              <td class="font-500"><?php echo $value['std_id']; ?></td>
-                              <td class="hidden-xs"><?php echo $value['std_fullname_th']; ?></td>
-                              <td class="hidden-xs"><?php echo $value['reg_year']; ?></td>
+                              <td class="font-500"><?php echo $value['username']; ?></td>
+                              <td class="hidden-xs"><?php echo $value['userinfo_fname']." ".$value['userinfo_lname'] ; ?></td>
+                              <td class="hidden-xs"><?php
+                                switch ($value['usertype_id']) {
+                                  case '1':
+                                    echo "Administrator";
+                                    break;
+                                    case '2':
+                                      echo "Teaching staff";
+                                      break;
+                                      case '3':
+                                        echo "Coordinator staff";
+                                        break;
+                                        case '4':
+                                          echo "Student";
+                                          break;
+                                  default:
+                                    echo "N/A";
+                                    break;
+                                }
+                              ?></td>
                               <td>
                                 <?php
-                                echo $value['qn_advicestatus'];
+                                switch($value['active_status']){
+                                  case 'Y': echo "<span style=color:green;>Active</span>"; break;
+                                  default: echo "<span style=color:red;>Disabled</span>";
+                                }
                                 ?>
                               </td>
                               <td class="text-center">
                                   <div class="btn-group">
-                                      <button class="btn btn-xs btn-app-blue btn-custom" type="button" data-toggle="tooltip" title="ดูข้อมูล" onclick="redirect('../applicationinfo/?pid=<?php echo $value['registration_id']; ?>')"><i class="fa fa-search"></i></button>
-                                      <button class="btn btn-xs btn-app-red btn-custom" type="button" data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/delete-registration.php?pid=<?php echo $value['registration_id']; ?>')" ><i class="fa fa-trash"></i></button>
+                                      <button class="btn btn-xs btn-app-blue btn-custom" type="button" data-toggle="tooltip" title="ดูข้อมูล" onclick="redirect('../userinfo/?username=<?php echo $value['username']; ?>')"><i class="fa fa-search"></i></button>
+                                      <?php
+                                      if($value['usertype_id']!='1'){
+                                        ?>
+                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/user-delete.php?username=<?php echo $value['username']; ?>')" ><i class="fa fa-trash"></i></button>
+                                        <?php
+                                      }else{
+                                        ?>
+                                        <button class="btn btn-xs btn-app-red btn-custom" type="button" disabled data-toggle="tooltip" title="ลบรายการ" ><i class="fa fa-trash"></i></button>
+                                        <?php
+                                      }
+                                      ?>
+
                                   </div>
                               </td>
                           </tr>
@@ -239,10 +269,6 @@ $row = $result->fetch();
 
     <!-- Include JS custom code -->
     <script src="../../dist/page/administrator/index.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('#asd').trigger('click');
-      });
-    </script>
+
   </body>
 </html>

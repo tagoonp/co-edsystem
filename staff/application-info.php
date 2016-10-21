@@ -8,7 +8,7 @@ $db = new database();
 $db->connect();
 $sprefix = $db->getSessionPrefix();
 
-$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.usertype_id = '1' AND a.active_status = 'Y'  ";
+$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.active_status = 'Y'  ";
 $result = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
 $row2 = $result->fetch();
 
@@ -16,8 +16,8 @@ if(!isset($_GET['pid'])){
   header('Location: ../error/?type=1'); die();
 }
 
-$strSQL = "SELECT * FROM trs3_registration a INNER JOIN trs3_questioniar b on a.std_id = b.qn_studentid WHERE a.registration_id = ?  ORDER BY a.registration_id ";
-$result = $db->select($strSQL, array($_GET['pid']));
+$strSQL = "SELECT * FROM trs3_registration a INNER JOIN trs3_questioniar b on a.std_id = b.qn_studentid WHERE a.registration_id = ? AND b.qn_advicestatus = ? ORDER BY a.registration_id ";
+$result = $db->select($strSQL, array($_GET['pid'], "Waiting"));
 
 
 
@@ -144,11 +144,6 @@ if($result){
                       </ul>
                     </li>
 
-                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
-
-                    <li class="nav-item ">
-                        <a href="../useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
-                    </li>
 
                     <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>
 
@@ -523,29 +518,24 @@ if($result){
                                               <div class="row">
                                                 <div class="col-sm-12" style="font-size: 0.9em;">
                                                   <p>
-                                                    ความเห็นอาจารย์ผู้รับผิดชอบนักศึกษาฝึกงานของภาควิชา
-                                                    <?php
-                                                    if($rowQn['qn_advicestatus']=='Waiting'){
-                                                      echo '<span style="color: rgb(156, 156, 156);">รอการตอบรับ</span>';
-                                                    }else if($rowQn['qn_advicestatus']=='Agree'){
-                                                      echo '<span style="color: rgb(7, 140, 104);">เห็นสมควร</span>';
-                                                    }else if($rowQn['qn_advicestatus']=='Otheragree'){
-                                                      echo '<span style="color: rgb(255, 115, 0);">ความเห็นอื่นๆ</span>';
-                                                    }else{
-                                                      echo "ไม่อนุมัติ";
-                                                    }
-                                                    ?>
-                                                  </p>
-                                                    ความเห็นเพิ่มเติม (ถ้ามี)
-                                                    <p>
-                                                      <?php
-                                                      if($rowQn['qn_advicestatusinfo']==""){
-                                                        echo "ไม่ระบุ";
-                                                      }else{
-                                                        echo $rowQn['qn_advicestatusinfo'];
-                                                      }
-                                                      ?>
+                                                    ความเห็นอาจารย์ผู้รับผิดชอบนักศึกษาฝึกงานของภาควิชา <span style="color: red;">** (เลือก 1 ข้อ)</span>
+                                                    <p style="padding-left: 30px;">
+                                                      <label class="css-input css-radio css-radio-danger m-r-sm" style="display:none;">
+                                        								<input type="radio" name="radio-group5" value="Waiting" checked /><span></span> NA
+                                        							</label>
+                                                      <label class="css-input css-radio css-radio-danger m-r-sm">
+                                        								<input type="radio" name="radio-group5" value="Agree" /><span></span> เห็นสมควร
+                                        							</label><br>
+                                                      <label class="css-input css-radio css-radio-danger">
+                                        								<input type="radio" name="radio-group5" value="Otheragree" /><span></span> ความเห็นอื่น
+                                        							</label>
                                                     </p>
+                                                    ความเห็นเพิ่มเติม (ถ้ามี)
+                                                    <div class="form-group" style="margin: 0px; padding: 0px;">
+                                                      <div class="col-sm-12" style="margin: 0px; padding: 0px;" id="a">
+                                                          <textarea class="form-control" id="txt-response" name="txt-response" rows="3" placeholder="กรอกความเห็นเพิ่มเติมที่นี่ ..."></textarea>
+                                                      </div>
+                                                    </div>
 
                                                     <div class="form-group" style="margin: 0px; padding: 0px; display: none;">
                                                       <div class="col-sm-12" style="margin: 0px; padding: 0px;">
@@ -556,11 +546,11 @@ if($result){
                                                 </div>
                                               </div>
 
-                                              <!-- <div class="row">
+                                              <div class="row">
                                                 <div class="col-sm-12" style="padding-top: 20px;">
                                                   <button type="submit" name="button" class="btn btn-app-teal">บันทึกผล</button>
                                                 </div>
-                                              </div> -->
+                                              </div>
                                             </form>
                                           </div>
 

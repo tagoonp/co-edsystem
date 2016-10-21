@@ -104,7 +104,7 @@ session_regenerate_id();
               <!-- Form -->
               <!-- jQuery Validation (.js-form2 class is initialized in js/pages/base_forms_wizard.js) -->
               <!-- For more examples please check https://github.com/jzaefferer/jquery-validation -->
-              <form class="js-form2 form-horizontal" action="controller/register.php" method="post">
+              <form class="js-form2 form-horizontal" action="controller/register.php" method="post" autocomplete="off">
                 <!-- <form class="js-validation-material form-horizontal" action="controller/register.php" method="post" > -->
                   <!-- Steps Content -->
                   <div class="card-block tab-content">

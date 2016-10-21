@@ -69,7 +69,7 @@
         <div class="col-sm-12" style="padding-top: 10px;" id="loginPane">
           <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-              <form class="js-validation-material form-horizontal" action="../controller/authen.php" method="post" >
+              <form class="js-validation-material form-horizontal" action="../controller/authen.php" method="post" autocomplete="off">
                 <div class="form-group">
                   <div class="col-sm-12">
                       <div class="form-material">

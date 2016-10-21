@@ -10,7 +10,8 @@ $sprefix = $db->getSessionPrefix();
 if(isset($_SESSION[$sprefix.'Username'])){
   switch($_SESSION[$sprefix.'Utype']){
     case '1': header('Location: ../administrator/'); break;
-    case '2': header('Location: ../viewer/'); break;
+    case '2': header('Location: ../staff/'); break;
+    case '3': header('Location: ../officer/'); break;
     case '4': header('Location: ../student/'); break;
     default: header('Location: ../');
     exit();

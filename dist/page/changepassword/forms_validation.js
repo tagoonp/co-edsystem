@@ -21,21 +21,15 @@ var BaseFormValidation = function() {
                 jQuery(e).closest( '.help-block' ).remove();
             },
             rules: {
-                'register2-password': {
-                  required: true
-                },
                 'register2-password2': {
                   required: true
                 },
                 'register2-password3': {
                   required: true,
-									equalTo: '#register2-password2'
+									equalTo: 'register2-password2'
                 }
             },
             messages: {
-							'register2-password': {
-								required: 'กรุณากรอกรหัสผ่านเดิม'
-							},
 							'register2-password2': {
 								required: 'กรุณากรอกรหัสผ่านใหม่'
 							},

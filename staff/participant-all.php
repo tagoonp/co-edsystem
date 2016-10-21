@@ -8,7 +8,7 @@ $db = new database();
 $db->connect();
 $sprefix = $db->getSessionPrefix();
 
-$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ? AND a.usertype_id = '1' AND a.active_status = 'Y'  ";
+$strSQL = "SELECT * FROM trs3_user a INNER JOIN trs3_userinfo b on a.username = b.userinfo_username WHERE a.username = ?  AND a.active_status = 'Y'  ";
 $result = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
 
 
@@ -130,12 +130,6 @@ $row = $result->fetch();
                       </ul>
                     </li>
 
-                    <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">การจัดการ</li>
-
-                    <li class="nav-item ">
-                        <a href="../useraccount/" style="font-weight: 300;"><i class="ion-android-person"></i> บัญชีผู้ใช้งาน</a>
-                    </li>
-
                     <li class="nav-item nav-drawer-header" style="font-weight: 500; color: teal;">อื่นๆ</li>
 
                     <li class="nav-item">
@@ -169,8 +163,8 @@ $row = $result->fetch();
                     </thead>
                     <tbody class="wizardTbd">
                       <?php
-                      $strSQL = "SELECT * FROM trs3_registration a inner join trs3_questioniar b on a.std_id = b.qn_studentid WHERE b.qn_advicestatus = 'Waiting' ORDER BY a.registration_id LIMIT 0, 1000";
-                      $result = $db->select($strSQL, array("N"));
+                      $strSQL = "SELECT * FROM trs3_registration a inner join trs3_questioniar b on a.std_id = b.qn_studentid WHERE b.qn_advicestatus in ('Agree', 'Otheragree') ORDER BY a.registration_id LIMIT 0, 1000";
+                      $result = $db->select($strSQL, array());
                       if($result){
                         // $row = $result->fetch();
                         $c = 1;
@@ -189,7 +183,7 @@ $row = $result->fetch();
                               </td>
                               <td class="text-center">
                                   <div class="btn-group">
-                                      <button class="btn btn-xs btn-app-blue btn-custom" type="button" data-toggle="tooltip" title="ดูข้อมูล" onclick="redirect('../applicationinfo/?pid=<?php echo $value['registration_id']; ?>')"><i class="fa fa-search"></i></button>
+                                      <button class="btn btn-xs btn-app-blue btn-custom" type="button" data-toggle="tooltip" title="ดูข้อมูล" onclick="redirect('../applicationinfo-all/?pid=<?php echo $value['registration_id']; ?>')"><i class="fa fa-search"></i></button>
                                       <button class="btn btn-xs btn-app-red btn-custom" type="button" data-toggle="tooltip" title="ลบรายการ" onclick="redirect_conf('../../controller/delete-registration.php?pid=<?php echo $value['registration_id']; ?>')" ><i class="fa fa-trash"></i></button>
                                   </div>
                               </td>

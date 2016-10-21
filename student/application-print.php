@@ -15,11 +15,15 @@ if(!isset($_GET['std_id'])){
 $strSQL = "SELECT * FROM trs3_registration WHERE std_id = ?  ORDER BY registration_id ";
 $result = $db->select($strSQL, array($_GET['std_id']));
 
+$strSQL = "SELECT * FROM trs3_questioniar WHERE qn_studentid = ?";
+$resultQn = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
+
 if(!$result){
   header('Location: ../error/?type=1'); die();
 }
 
 $row = $result->fetch();
+$rowQn = $resultQn->fetch();
 
 ?>
 <!DOCTYPE html>
@@ -70,16 +74,19 @@ $row = $result->fetch();
             </div>
           </div>
           <div class="row" style="padding-top: 20px;" id="pn1" style="display:block; ">
-            <div class="col-sm-12">
+            <div class="col-sm-12 text">
               <div class="row">
                 <div class="col-sm-12">
                   <div class="text-center">
-                    <h3 style="font-size: 20px" class="th-font-bold">ใบสมัครฝึกงานภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>ภาควิชาฟิสิกส์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์</h3>
+                    <h3 style="font-size: 22px" class="th-font-bold">ใบสมัครฝึกงานภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>ภาควิชาฟิสิกส์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์</h3>
                   </div>
                   <div class="text-right" style="font-size: 16px;">
-                    <strong>วันที่</strong> <?php echo $row['reg_date']; ?>
+                    <strong>วันที่สมัคร</strong> <?php echo $row['reg_date']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>วันที่พิมพ์</strong> <?php echo date('Y-m-d'); ?>
                   </div>
                 </div>
+              </div>
+              <div class="th-font-bold" style="font-size: 20px; border: solid; border-width: 0px 0px 2px 0px; margin-bottom: 20px;">
+                ส่วนที่ 1 ใบสมัคร
               </div>
               <table class="table table-condensed table-borderless" id="pTable" style="font-size: 18px;">
                 <tr>
@@ -282,6 +289,101 @@ $row = $result->fetch();
                 </tr>
 
               </table>
+
+              <div class="th-font-bold" style="font-size: 20px; border: solid; border-width: 0px 0px 2px 0px; margin-bottom: 20px;">
+                ส่วนที่ 2 แบบสอบถามรายวิชาฝึกงาน
+              </div>
+              <?php
+              $strSQL = "SELECT * FROM trs3_department WHERE tmp_std_id = ?";
+              $resultDept = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
+              if($resultDept){
+
+              }
+              ?>
+              <table class="table table-condensed table-borderless" id="pTable" style="font-size: 18px;">
+                <tr>
+                  <td colspan="3">
+                    <strong class="th-font-bold fx18">ข้อมูลความต้องการฝึกงาน</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <table class="table table-bordered table-condensed " id="pTable" style="font-size: 18px;">
+                      <thead>
+                        <tr>
+                          <th class="th-font-bold fx18">
+                            ลำดับที่
+                          </th>
+                          <th class="th-font-bold fx18">
+                            สาขา/ตำแหน่ง/แผนก/ฝ่าย
+                          </th>
+                          <th class="th-font-bold fx18">
+                            หน่วยงาน/บริษัท/สถานประกอบการ
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $strSQL = "SELECT * FROM trs3_department WHERE tmp_std_id = ?";
+                        $resultDept = $db->select($strSQL, array($_SESSION[$sprefix.'Username']));
+
+                        if($resultDept){
+                          $c = 1;
+                          foreach ($resultDept as $value2) {
+                            ?>
+                            <tr>
+                              <td style="padding: 5px 10px; font-size: 18px;">
+                                <?php echo $c; ?>
+                              </td>
+                              <td style="padding: 5px 10px; font-size: 18px;">
+                                <?php echo $value2['tmp_dept']; ?>
+                              </td>
+                              <td style="padding: 5px 10px; font-size:18px;">
+                                <?php echo $value2['tmp_unit']; ?>
+                              </td>
+                            </tr>
+                            <?php
+                            $c++;
+                          }
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong class="th-font-bold fx18">นักศึกษาสามารถติดต่อกับหน่วยงานที่จะไปฝึกงานด้วยตัวเอง</strong> <?php
+                    switch($rowQn['qn_seltcontact']){
+                      case 'No': echo 'ไม่ได้'; break;
+                      case 'Yes': echo 'ได้'; break;
+                      default: echo 'ไม่ระบุ';
+                    }
+                    ?>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="3">
+                    <strong class="th-font-bold fx18">** ส่วนนี้กรอกเฉพาะนักศึกษาที่ติดต่อหาที่ฝึกงานได้ด้วยตัวเองเท่านั้น</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="3">
+                    <?php
+                    if($rowQn['qn_selfcontactinfo']==''){
+                      echo $rowQn['qn_selfcontactinfo'];
+                    }else{
+                      echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"."ไม่ระบุ";
+                    }
+
+                    ?>
+                  </td>
+                </tr>
+
+              </table>
+
             </div>
 
             <div class="row">
