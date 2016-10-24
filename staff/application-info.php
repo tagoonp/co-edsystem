@@ -190,6 +190,19 @@ if($result){
 
 
                                             <div class="" style="font-size: 24px;">
+                                              <div class="" style="font-size: 24px;">
+                                                <div class="row">
+                                                  <div class="col-sm-4 col-sm-offset-4">
+                                                    <?php
+                                                    if($row['std_profilepic']!=''){
+                                                      ?>
+                                                      <img src="../../img/<?php print $row['std_profilepic'];?>" alt="" class="img-responsive" />
+                                                      <?php
+                                                    }
+                                                    ?>
+                                                  </div>
+                                                </div>
+                                                
                                               <div class="row" style="padding-top: 20px;">
                                                 <div class="col-sm-1">
                                                   <span class="cont-title2">(1)</span>

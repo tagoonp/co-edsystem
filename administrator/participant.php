@@ -169,7 +169,7 @@ $row = $result->fetch();
                     </thead>
                     <tbody class="wizardTbd">
                       <?php
-                      $strSQL = "SELECT * FROM trs3_registration a inner join trs3_questioniar b on a.std_id = b.qn_studentid WHERE b.qn_advicestatus = 'Waiting' ORDER BY a.registration_id LIMIT 0, 1000";
+                      $strSQL = "SELECT * FROM trs3_registration a inner join trs3_questioniar b on a.std_id = b.qn_studentid WHERE b.qn_advicestatus = 'Waiting' AND a.confirm_status = 'Y' ORDER BY a.registration_id LIMIT 0, 1000";
                       $result = $db->select($strSQL, array("N"));
                       if($result){
                         // $row = $result->fetch();

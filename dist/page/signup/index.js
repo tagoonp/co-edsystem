@@ -27,6 +27,17 @@ $(function(){
   });
 });
 
+function deltemp(url){
+  var posting = $.post( url );
+
+  posting.always(function( data ) {
+    $('#temp_result').html(data);
+  });
+
+  $('#txt-department').val('');
+  $('#txt-unit').val('');
+}
+
 function getAge(od, om, oy)
  {
 	var day = od;

@@ -112,7 +112,7 @@ $rowQn = $resultQn->fetch();
               if($row['confirm_status']=='N'){
                 ?>
                 <button type="button" name="button" class="btn btn-app-red" style="font-size: 20px;" onclick="redirect_conf_del('../controller/delete-application.php')"><i class="fa fa-trash"></i> ลบข้อมูลชุดนี้</button>
-                <button type="button" name="button" class="btn btn-app-teal" style="font-size: 20px;" onclick="redirect_conf_confirm('../controller/confirm_registration.php')"><i class="fa fa-check-square-o"></i> ยืนยันข้อมูลนี้</button>
+                <button type="button" name="button" class="btn btn-app-teal" style="font-size: 20px;" onclick="redirect_conf_confirm('../controller/confirm_registration.php?std_id=<?php print $_SESSION[$sprefix.'Username']; ?>')"><i class="fa fa-check-square-o"></i> ยืนยันข้อมูลนี้</button>
                 <?php
               }
               ?>
@@ -195,6 +195,9 @@ $rowQn = $resultQn->fetch();
                                       </li>
                                       <li>
                                           <a href="#btabs-alt-static-profile">แบบสอบถามรายวิชาฝึกงาน</a>
+                                      </li>
+                                      <li>
+                                          <a href="#btabs-alt-static-picture">อัพโหลดรูปประจำตัว</a>
                                       </li>
                                       <li class="pull-right">
                                           <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="Settings"><i class="fa fa-gear"></i> Logs</a>
@@ -518,6 +521,39 @@ $rowQn = $resultQn->fetch();
                                         </div>
 
                                       </div>
+
+
+                                      <div class="tab-pane" id="btabs-alt-static-picture">
+                                        <?php
+                                        if($row['std_profilepic']!=''){
+                                          ?>
+                                          <div class="row" style="margin-bottom: 0px;">
+                                            <div class="col-sm-12">
+                                              <h4 class="th-font-bold" style="color: orange;">รูปประจำตัวล่าสุด</h4>
+                                            </div>
+                                            <div class="col-md-3">
+                                              <img src="../img/<?php echo $row['std_profilepic']; ?>" alt="" class="img-responsive" />
+                                            </div>
+                                          </div>
+                                          <?php
+                                        }
+                                        ?>
+
+                                        <div class="row">
+                                          <div class="col-xs-12">
+                                              <h4 class="th-font-bold" style="color: orange;">คำแนะนำการอัพโหลดรูปประจำตัว</h4>
+                                              <p style="font-size: 0.8em;">
+                                                ** ขนาดรูปไม่เกิด 5 MB<br>
+                                                *** อัพโหลดไฟล์รูปภาพ ครั้งละ 1 รูปเท่านั้น
+                                              </p>
+                                          </div>
+                                        </div>
+
+
+
+                                        <form class="dropzone" id="myFile" action="../controller/upload_picture_student.php?std_id=<?php print $_SESSION[$sprefix.'Username']; ?>" ></form>
+                                      </div>
+
                                       <div class="tab-pane" id="btabs-alt-static-settings">
                                         <div class="row">
                                           <div class="col-sm-12">
@@ -621,8 +657,27 @@ $rowQn = $resultQn->fetch();
 
     <!-- Page JS Plugins -->
     <script src="../assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+    <script src="../assets/js/plugins/dropzonejs/dropzone.min.js"></script>
 
     <!-- Include JS custom code -->
     <script src="../dist/page/student/index.js"></script>
+
+    <script type="text/javascript">
+    $(function(){
+      // jQuery
+      // $("div#myFile").dropzone({ url: "controller/upload_picture.php" });
+      // var myDropzone = new Dropzone("#a1", { url: "controller/upload_picture.php"});
+      Dropzone.options.myFile = {
+        acceptedFiles: 'image/*',
+        maxFiles: 1,
+        maxFilesize: 5
+      };
+
+      $("#myFile").on("complete", function(file) {
+        myDropzone.removeFile(file);
+      });
+    });
+    </script>
+
   </body>
 </html>

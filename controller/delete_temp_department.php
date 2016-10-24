@@ -7,10 +7,11 @@ $db = new database();
 $db->connect();
 $sprefix = $db->getSessionPrefix();
 
+if(isset($_GET['id'])){
+  $strSQL = "DELETE FROM trs3_department_temporary WHERE tmp_id = ?";
+  $result = $db->delete($strSQL, array($_GET['id']));
+}
 
-$strSQL = "INSERT INTO trs3_department_temporary (	tmp_dept, tmp_unit, tmp_sessid, tmp_std_id, tmp_date) VALUE
-          (?, ?, ?, ?, ?)";
-$result = $db->insert($strSQL, array($_POST['department'], $_POST['unit'], session_id(), $_POST['std_id'], date('Y-m-d H:i:s')));
 
 ?>
 <table class="table table-bordered table-header-bg">
@@ -27,7 +28,7 @@ $result = $db->insert($strSQL, array($_POST['department'], $_POST['unit'], sessi
   <tbody>
     <?php
     $strSQL = "SELECT * FROM trs3_department_temporary WHERE tmp_std_id= ? AND tmp_sessid = ? ";
-    $result2 = $db->select($strSQL, array($_POST['std_id'], session_id()));
+    $result2 = $db->select($strSQL, array($_GET['std_id'], session_id()));
     if($result2){
       $c = 1;
       foreach ($result2 as $value) {
@@ -43,7 +44,7 @@ $result = $db->insert($strSQL, array($_POST['department'], $_POST['unit'], sessi
             <?php echo $value['tmp_unit']; ?>
           </td>
           <td class="col-sm-1" style="padding: 5px 10px; font-size: 24px;">
-            <a href="Javascript: deltemp('controller/delete_temp_department.php?id=<?php print $value['tmp_id'];?>&std_id=<?php print $_POST['std_id'];?>')" class="btn btn-app-red" style="padding-bottom: 0px; font-size: 0.7em;"><i class="fa fa-trash"></i></a>
+            <a href="Javascript: deltemp('delete_temp_department.php?id=<?php print $value['tmp_id'];?>')" class="btn btn-app-red" style="padding-bottom: 0px; font-size: 0.7em;"><i class="fa fa-trash"></i></a>
           </td>
         </tr>
         <?php

@@ -80,8 +80,18 @@ function redirect_conf_del(url){
   swal({   title: "คุณแน่ใจหรือไม่?",   text: "รายการนี้จะไม่สามารถกู้คืนได้หลังลบข้อมูลแล้ว และคุณต้องทำการเพิ่มข้อมูลใหม่ทั้งหมด!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "ตกลง!",   cancelButtonText: "ยกเลิก!",   closeOnConfirm: false }, function(){ window.location = url; });
 }
 
-function redirect_conf_confirm(url){
-  swal({   title: "คุณแน่ใจหรือไม่?",   text: "เมื่อคุณยืนยันแล้ว การแจ้งสมัครฝึกงานจะไม่สามารถแก้ไขได้อีกจนกว่าจะมีผลตอบรับจากอาจารย์ที่ปรึกษารายวิชาฝึกงาน",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "ตกลง!",   cancelButtonText: "ยกเลิก!",   closeOnConfirm: false }, function(){ window.location = url; });
+function redirect_conf_confirm(url, std_id){
+  var jqxhr = $.post( "../controller/checkAvailable.php", { stdid: std_id });
+  jqxhr.always(function(data){
+    // console.log(data);
+    if(data=='Y'){
+      swal("ไม่สามารถดำเนินการได้!", "กรุณาอัพโหลดรูปประจำตัวก่อนการยืนยันไม่ลงทะเบียน!", "error")
+    }else{
+      swal({   title: "คุณแน่ใจหรือไม่?",   text: "เมื่อคุณยืนยันแล้ว การแจ้งสมัครฝึกงานจะไม่สามารถแก้ไขได้อีกจนกว่าจะมีผลตอบรับจากอาจารย์ที่ปรึกษารายวิชาฝึกงาน",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "ตกลง!",   cancelButtonText: "ยกเลิก!",   closeOnConfirm: false }, function(){ window.location = url; });
+    }
+  });
+
+
 }
 
 function printForm(divName){
