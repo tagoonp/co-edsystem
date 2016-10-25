@@ -166,12 +166,6 @@ if($result){
                                           <li class="active">
                                               <a href="#btabs-alt-static-home">ใบสมัครฝึกงานภาคฤดูร้อน</a>
                                           </li>
-                                          <li>
-                                              <a href="#btabs-alt-static-profile">แบบสอบถามรายวิชาฝึกงาน</a>
-                                          </li>
-                                          <li>
-                                              <a href="#btabs-alt-static-setup">ดำเนินการ</a>
-                                          </li>
                                           <li class="pull-right">
                                               <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="View log">Logs</a>
                                           </li>
@@ -411,166 +405,129 @@ if($result){
                                             </div>
 
                                           </div>
-                                          <!-- End tab1 -->
 
-                                          <div class="tab-pane" id="btabs-alt-static-profile">
-                                            <div class="row">
-                                              <div class="col-sm-12">
-                                                <div class="text-center">
-                                                  <h4 style="background: transparent; font-weight: bold; font-size: 34px; color: teal;">แบบสอบถามรายวิชาฝึกงาน<br>
-                                                    ประจำภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>
-                                                    <span style="font-size: 26px;">ชื่อ - สกุล <span style="color: black;"><?php echo $row['std_fullname_th']; ?></span>  รหัสนักศึกษา <span style="color: black;"><?php echo $row['std_id']; ?></span></span>
-                                                  </h4>
-                                                </div>
-                                              </div>
-                                            </div>
+                                          <div class="row">
+                                            <div class="col-sm-12">
+                                              <h4 style="color: orange;">ข้อมูลความต้องการฝึกงาน</h4>
+                                              <table class="table table-bordered table-header-bg">
+                                                <thead>
+                                                  <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                                    ลำดับที่
+                                                  </th>
+                                                  <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                                    สาขา/ตำแหน่ง/แผนก/ฝ่าย
+                                                  </th>
+                                                  <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                                    หน่วยงาน/บริษัท/สถานประกอบการ
+                                                  </th>
+                                                </thead>
+                                                <tbody>
+                                                  <?php
+                                                  $strSQL = "SELECT * FROM trs3_department WHERE tmp_std_id = ?";
+                                                  $resultDept = $db->select($strSQL, array($row['std_id']));
 
-                                            <div class="container">
-                                              <div class="row">
-                                                <div class="col-sm-10 col-sm-offset-1">
-                                                  <h4 style="color: orange;">ข้อมูลความต้องการฝึกงาน</h4>
-                                                  <table class="table table-bordered table-header-bg">
-                                                    <thead>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        ลำดับที่
-                                                      </th>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        สาขา/ตำแหน่ง/แผนก/ฝ่าย
-                                                      </th>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        หน่วยงาน/บริษัท/สถานประกอบการ
-                                                      </th>
-                                                    </thead>
-                                                    <tbody>
-                                                      <?php
-                                                      $strSQL = "SELECT * FROM trs3_department WHERE tmp_std_id = ?";
-                                                      $resultDept = $db->select($strSQL, array($row['std_id']));
-
-                                                      if($resultDept){
-                                                        $c = 1;
-                                                        foreach ($resultDept as $value2) {
-                                                          ?>
-                                                          <tr>
-                                                            <td style="padding: 5px 10px; font-size: 24px;">
-                                                              <?php echo $c; ?>
-                                                            </td>
-                                                            <td style="padding: 5px 10px; font-size: 24px;">
-                                                              <?php echo $value2['tmp_dept']; ?>
-                                                            </td>
-                                                            <td style="padding: 5px 10px; font-size: 24px;">
-                                                              <?php echo $value2['tmp_unit']; ?>
-                                                            </td>
-                                                          </tr>
-                                                          <?php
-                                                          $c++;
-                                                        }
-                                                      }else{
-                                                        ?>
-                                                        <tr>
-                                                          <td colspan="3" style="padding: 5px 10px; font-size: 24px;">
-                                                            ไม่มีข้อมูล
-                                                          </td>
-                                                        </tr>
-                                                        <?php
-                                                      }
+                                                  if($resultDept){
+                                                    $c = 1;
+                                                    foreach ($resultDept as $value2) {
                                                       ?>
-                                                    </tbody>
-                                                  </table>
-
-                                                  <div class="" style="font-size: 24px;">
-
-
-                                                    <!-- <div class="row">
-                                                      <div class="col-sm-12">
-                                                        <span style="color:red;">* </span> หากไม่ระบุวันฝึกงาน ให้ใช้วันที่ภาควิชากำหนด
-                                                        (ภาคฤดูร้อนไม่น้อยกว่า 6 สัปดาห์ ฯ ละไม่ต่ำกว่า 25 ชั่วโมง)<br>
-                                                        <span style="color:red;">** </span> กรณีฝึกที่เดียวกันหลายคนให้ใช้ช่วงเวลาฝึกเดียวกัน
-                                                      </div>
-                                                    </div> -->
-
-                                                    <!-- <hr> -->
-
-                                                    <div class="row">
-                                                      <div class="col-sm-12">
-                                                        <span class="cont-title2">นักศึกษาสามารถติดต่อกับหน่วยงานที่จะไปฝึกงานด้วยตัวเอง</span>
-                                                        <?php
-                                                        switch($rowQn['qn_seltcontact']){
-                                                          case 'No': echo 'ไม่ได้'; break;
-                                                          case 'Yes': echo 'ได้'; break;
-                                                          default: echo 'ไม่ระบุ';
-                                                        }
-                                                        ?>
-                                                      </div>
-                                                    </div>
-
-                                                    <div class="row" style="display: <?php if($rowQn['qn_seltcontact']=='No'){ print "none"; }?>; ">
-                                                      <div class="col-sm-12">
-                                                        <h4 style="color: orange;">ส่วนนี้กรอกเฉพาะนักศึกษาที่ติดต่อหาที่ฝึกงานได้ด้วยตัวเองเท่านั้น</h4>
-                                                        <?php
-                                                        if($rowQn['qn_selfcontactinfo']==''){
-                                                          echo $rowQn['qn_selfcontactinfo'];
-                                                        }else{
-                                                          echo "-";
-                                                        }
-
-                                                        ?>
-                                                      </div>
-                                                    </div>
-
-                                                  </div>
-
-                                                </div>
-                                              </div>
-
-                                            </div>
-
-                                          </div>
-
-                                          <div class="tab-pane active" id="btabs-alt-static-setup">
-                                            <form class="responseForm" action="../../controller/submitResponse.php" method="post">
-                                              <div class="row">
-                                                <div class="col-sm-12" style="font-size: 0.9em;">
-                                                  <p>
-                                                    ความเห็นอาจารย์ผู้รับผิดชอบนักศึกษาฝึกงานของภาควิชา
+                                                      <tr>
+                                                        <td style="padding: 5px 10px; font-size: 24px;">
+                                                          <?php echo $c; ?>
+                                                        </td>
+                                                        <td style="padding: 5px 10px; font-size: 24px;">
+                                                          <?php echo $value2['tmp_dept']; ?>
+                                                        </td>
+                                                        <td style="padding: 5px 10px; font-size: 24px;">
+                                                          <?php echo $value2['tmp_unit']; ?>
+                                                        </td>
+                                                      </tr>
+                                                      <?php
+                                                      $c++;
+                                                    }
+                                                  }else{
+                                                    ?>
+                                                    <tr>
+                                                      <td colspan="3" style="padding: 5px 10px; font-size: 24px;">
+                                                        ไม่มีข้อมูล
+                                                      </td>
+                                                    </tr>
                                                     <?php
-                                                    if($rowQn['qn_advicestatus']=='Waiting'){
-                                                      echo '<span style="color: rgb(156, 156, 156);">รอการตอบรับ</span>';
-                                                    }else if($rowQn['qn_advicestatus']=='Agree'){
-                                                      echo '<span style="color: rgb(7, 140, 104);">เห็นสมควร</span>';
-                                                    }else if($rowQn['qn_advicestatus']=='Otheragree'){
-                                                      echo '<span style="color: rgb(255, 115, 0);">ความเห็นอื่นๆ</span>';
-                                                    }else{
-                                                      echo "ไม่อนุมัติ";
+                                                  }
+                                                  ?>
+                                                </tbody>
+                                              </table>
+
+                                              <div class="" style="font-size: 24px;">
+                                                <div class="row">
+                                                  <div class="col-sm-12">
+                                                    <span class="cont-title2">นักศึกษาสามารถติดต่อกับหน่วยงานที่จะไปฝึกงานด้วยตัวเอง</span>
+                                                    <?php
+                                                    switch($rowQn['qn_seltcontact']){
+                                                      case 'No': echo 'ไม่ได้'; break;
+                                                      case 'Yes': echo 'ได้'; break;
+                                                      default: echo 'ไม่ระบุ';
                                                     }
                                                     ?>
-                                                  </p>
-                                                    ความเห็นเพิ่มเติม (ถ้ามี)
-                                                    <p>
-                                                      <?php
-                                                      if($rowQn['qn_advicestatusinfo']==""){
-                                                        echo "ไม่ระบุ";
-                                                      }else{
-                                                        echo $rowQn['qn_advicestatusinfo'];
-                                                      }
-                                                      ?>
-                                                    </p>
-
-                                                    <div class="form-group" style="margin: 0px; padding: 0px; display: none;">
-                                                      <div class="col-sm-12" style="margin: 0px; padding: 0px;">
-                                                          <input class="form-control" type="text" id="val-stdid" name="val-stdid" placeholder="" value="<?php echo $row['std_id']; ?>" readonly />
-                                                      </div>
-                                                    </div>
-                                                  </p>
+                                                  </div>
                                                 </div>
+
+                                                <div class="row" style="display: <?php if($rowQn['qn_seltcontact']=='No'){ print "none"; }?>; ">
+                                                  <div class="col-sm-12">
+                                                    <h4 style="color: orange;">ส่วนนี้กรอกเฉพาะนักศึกษาที่ติดต่อหาที่ฝึกงานได้ด้วยตัวเองเท่านั้น</h4>
+                                                    <?php
+                                                    if($rowQn['qn_selfcontactinfo']==''){
+                                                      echo $rowQn['qn_selfcontactinfo'];
+                                                    }else{
+                                                      echo "-";
+                                                    }
+
+                                                    ?>
+                                                  </div>
+                                                </div>
+
                                               </div>
 
-                                              <!-- <div class="row">
-                                                <div class="col-sm-12" style="padding-top: 20px;">
-                                                  <button type="submit" name="button" class="btn btn-app-teal">บันทึกผล</button>
-                                                </div>
-                                              </div> -->
-                                            </form>
+                                            </div>
                                           </div>
+
+                                          <div class="row">
+                                            <div class="col-sm-12" style="font-size: 0.9em;">
+                                              <p>
+                                                <span class="cont-title2">ความเห็นอาจารย์ผู้รับผิดชอบนักศึกษาฝึกงานของภาควิชา</span>
+                                                <?php
+                                                if($rowQn['qn_advicestatus']=='Waiting'){
+                                                  echo '<span style="color: rgb(156, 156, 156);">รอการตอบรับ</span>';
+                                                }else if($rowQn['qn_advicestatus']=='Agree'){
+                                                  echo '<span style="color: rgb(7, 140, 104);">เห็นสมควร</span>';
+                                                }else if($rowQn['qn_advicestatus']=='Otheragree'){
+                                                  echo '<span style="color: rgb(255, 115, 0);">ความเห็นอื่นๆ</span>';
+                                                }else{
+                                                  echo "ไม่อนุมัติ";
+                                                }
+                                                ?>
+                                              </p>
+                                                <span class="cont-title2">ความเห็นเพิ่มเติม (ถ้ามี)</span>
+                                                <p>
+                                                  <?php
+                                                  if($rowQn['qn_advicestatusinfo']==""){
+                                                    echo "ไม่ระบุ";
+                                                  }else{
+                                                    echo $rowQn['qn_advicestatusinfo'];
+                                                  }
+                                                  ?>
+                                                </p>
+
+                                                <div class="form-group" style="margin: 0px; padding: 0px; display: none;">
+                                                  <div class="col-sm-12" style="margin: 0px; padding: 0px;">
+                                                      <input class="form-control" type="text" id="val-stdid" name="val-stdid" placeholder="" value="<?php echo $row['std_id']; ?>" readonly />
+                                                  </div>
+                                                </div>
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                          <!-- End tab1 -->
+
 
                                           <div class="tab-pane" id="btabs-alt-static-settings">
                                             <div class="row">

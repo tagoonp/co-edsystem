@@ -410,7 +410,7 @@ if($result){
                                               </div>
                                             </div>
 
-                                          </div>
+                                          </div></div>
                                           <!-- End tab1 -->
 
                                           <div class="tab-pane" id="btabs-alt-static-profile">

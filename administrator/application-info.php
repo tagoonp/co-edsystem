@@ -482,17 +482,6 @@ if($result){
 
                                                   <div class="" style="font-size: 24px;">
 
-
-                                                    <!-- <div class="row">
-                                                      <div class="col-sm-12">
-                                                        <span style="color:red;">* </span> หากไม่ระบุวันฝึกงาน ให้ใช้วันที่ภาควิชากำหนด
-                                                        (ภาคฤดูร้อนไม่น้อยกว่า 6 สัปดาห์ ฯ ละไม่ต่ำกว่า 25 ชั่วโมง)<br>
-                                                        <span style="color:red;">** </span> กรณีฝึกที่เดียวกันหลายคนให้ใช้ช่วงเวลาฝึกเดียวกัน
-                                                      </div>
-                                                    </div> -->
-
-                                                    <!-- <hr> -->
-
                                                     <div class="row">
                                                       <div class="col-sm-12">
                                                         <span class="cont-title2">นักศึกษาสามารถติดต่อกับหน่วยงานที่จะไปฝึกงานด้วยตัวเอง</span>

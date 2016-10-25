@@ -409,7 +409,7 @@ if($result){
                                               </div>
                                             </div>
 
-                                          </div>
+                                          </div></div>
                                           <!-- End tab1 -->
 
                                           <div class="tab-pane" id="btabs-alt-static-profile">
@@ -526,7 +526,7 @@ if($result){
                                           </div>
 
                                           <div class="tab-pane active" id="btabs-alt-static-setup">
-                                            <form class="responseForm" action="../../controller/submitResponse.php" method="post">
+                                            <form class="responseForm" action="../../controller/submitResponse_officer.php" method="post">
                                               <div class="row">
                                                 <div class="col-sm-12" style="font-size: 0.9em;">
                                                   <p>

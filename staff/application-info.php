@@ -161,23 +161,21 @@ if($result){
           <div class="row" style="margin-top: 0px;">
             <div class="col-sm-12">
               <div class="card">
-                                      <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
-                                          <li class="active">
-                                              <a href="#btabs-alt-static-home">ใบสมัครฝึกงานภาคฤดูร้อน</a>
-                                          </li>
-                                          <li>
-                                              <a href="#btabs-alt-static-profile">แบบสอบถามรายวิชาฝึกงาน</a>
-                                          </li>
-                                          <li>
-                                              <a href="#btabs-alt-static-setup">ดำเนินการ</a>
-                                          </li>
-                                          <li class="pull-right">
-                                              <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="View log">Logs</a>
-                                          </li>
-                                      </ul>
-                                      <div class="card-block tab-content">
-                                          <div class="tab-pane active" id="btabs-alt-static-home">
-                                            <div class="row">
+                <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
+                    <li class="active">
+                        <a href="#btabs-alt-static-home">ใบสมัครฝึกงานภาคฤดูร้อน</a>
+                    </li>
+                    <li>
+                        <a href="#btabs-alt-static-setup">ดำเนินการ</a>
+                    </li>
+                    <li class="pull-right">
+                        <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="View log">Logs</a>
+                    </li>
+                </ul>  <!-- End Card Tabs Alternative Style -->
+
+                <div class="card-block tab-content">
+                    <div class="tab-pane active" id="btabs-alt-static-home">
+                      <div class="row">
                                               <div class="col-sm-12">
                                                 <div class="text-center">
                                                   <h4 style="background: transparent; font-weight: bold; font-size: 34px; color: teal;">ใบสมัครฝึกงานภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>
@@ -186,11 +184,11 @@ if($result){
                                                   </h4>
                                                 </div>
                                               </div>
-                                            </div>
+                                              </div>
 
 
-                                            <div class="" style="font-size: 24px;">
-                                              <div class="" style="font-size: 24px;">
+                                            <div class="row" style="font-size: 24px;">
+                                              <div class="col-sm-12" style="font-size: 24px;">
                                                 <div class="row">
                                                   <div class="col-sm-4 col-sm-offset-4">
                                                     <?php
@@ -202,7 +200,7 @@ if($result){
                                                     ?>
                                                   </div>
                                                 </div>
-                                                
+
                                               <div class="row" style="padding-top: 20px;">
                                                 <div class="col-sm-1">
                                                   <span class="cont-title2">(1)</span>
@@ -409,25 +407,11 @@ if($result){
                                                 </div>
                                               </div>
                                             </div>
-
-                                          </div>
-                                          <!-- End tab1 -->
-
-                                          <div class="tab-pane" id="btabs-alt-static-profile">
-                                            <div class="row">
-                                              <div class="col-sm-12">
-                                                <div class="text-center">
-                                                  <h4 style="background: transparent; font-weight: bold; font-size: 34px; color: teal;">แบบสอบถามรายวิชาฝึกงาน<br>
-                                                    ประจำภาคฤดูร้อน ปีการศึกษา <?php echo $row['reg_year']; ?><br>
-                                                    <span style="font-size: 26px;">ชื่อ - สกุล <span style="color: black;"><?php echo $row['std_fullname_th']; ?></span>  รหัสนักศึกษา <span style="color: black;"><?php echo $row['std_id']; ?></span></span>
-                                                  </h4>
-                                                </div>
-                                              </div>
                                             </div>
 
-                                            <div class="container">
+
                                               <div class="row">
-                                                <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="col-sm-12">
                                                   <h4 style="color: orange;">ข้อมูลความต้องการฝึกงาน</h4>
                                                   <table class="table table-bordered table-header-bg">
                                                     <thead>
@@ -479,17 +463,6 @@ if($result){
 
                                                   <div class="" style="font-size: 24px;">
 
-
-                                                    <!-- <div class="row">
-                                                      <div class="col-sm-12">
-                                                        <span style="color:red;">* </span> หากไม่ระบุวันฝึกงาน ให้ใช้วันที่ภาควิชากำหนด
-                                                        (ภาคฤดูร้อนไม่น้อยกว่า 6 สัปดาห์ ฯ ละไม่ต่ำกว่า 25 ชั่วโมง)<br>
-                                                        <span style="color:red;">** </span> กรณีฝึกที่เดียวกันหลายคนให้ใช้ช่วงเวลาฝึกเดียวกัน
-                                                      </div>
-                                                    </div> -->
-
-                                                    <!-- <hr> -->
-
                                                     <div class="row">
                                                       <div class="col-sm-12">
                                                         <span class="cont-title2">นักศึกษาสามารถติดต่อกับหน่วยงานที่จะไปฝึกงานด้วยตัวเอง</span>
@@ -521,13 +494,10 @@ if($result){
 
                                                 </div>
                                               </div>
+                    </div>
 
-                                            </div>
-
-                                          </div>
-
-                                          <div class="tab-pane active" id="btabs-alt-static-setup">
-                                            <form class="responseForm" action="../../controller/submitResponse.php" method="post">
+                                            <div class="tab-pane" id="btabs-alt-static-setup">
+                                              <form class="responseForm" action="../../controller/submitResponse_staff.php" method="post">
                                               <div class="row">
                                                 <div class="col-sm-12" style="font-size: 0.9em;">
                                                   <p>
@@ -565,75 +535,76 @@ if($result){
                                                 </div>
                                               </div>
                                             </form>
-                                          </div>
+                    </div>
+                    <div class="tab-pane" id="btabs-alt-static-settings">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <table class="table table-striped table-header-bg">
+                            <thead>
+                              <tr>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  ลำดับที่
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  กระบวนการ
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  สถานะ
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  โดย
+                                </th>
+                                <th style="font-weight: bold; padding: 10px; font-size: 26px;">
+                                  วันที่ปรับปรุงข้อมูล
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+                              $strSQL = "SELECT * FROM trs3_usertransection WHERE	t_username = ? ";
+                              $resultTransection = $db->select($strSQL, array($row['std_id']));
 
-                                          <div class="tab-pane" id="btabs-alt-static-settings">
-                                            <div class="row">
-                                              <div class="col-sm-12">
-                                                <table class="table table-striped table-header-bg">
-                                                  <thead>
-                                                    <tr>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        ลำดับที่
-                                                      </th>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        กระบวนการ
-                                                      </th>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        สถานะ
-                                                      </th>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        โดย
-                                                      </th>
-                                                      <th style="font-weight: bold; padding: 10px; font-size: 26px;">
-                                                        วันที่ปรับปรุงข้อมูล
-                                                      </th>
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                    <?php
-                                                    $strSQL = "SELECT * FROM trs3_usertransection WHERE	t_username = ? ";
-                                                    $resultTransection = $db->select($strSQL, array($row['std_id']));
+                              if($resultTransection){
+                                $i = 1;
+                                foreach ($resultTransection as $value3) {
+                                  ?>
+                                  <tr>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $i; $i++; ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $value3['t_desc']; ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php
+                                        if($value3['t_status']=='Fail'){
+                                          echo '<span style="color:red;">'.$value3['t_status'].'</span>';
+                                        }else{
+                                          echo '<span style="color:green;">'.$value3['t_status'].'</span>';
+                                        }
+                                      ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $value3['t_relateuser']; ?>
+                                    </td>
+                                    <td style="padding: 5px 10px; font-size: 24px;">
+                                      <?php echo $value3['t_date']." ".$value3['t_time']; ?>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                }
+                              }
+                              ?>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+              </div>
 
-                                                    if($resultTransection){
-                                                      $i = 1;
-                                                      foreach ($resultTransection as $value3) {
-                                                        ?>
-                                                        <tr>
-                                                          <td style="padding: 5px 10px; font-size: 24px;">
-                                                            <?php echo $i; $i++; ?>
-                                                          </td>
-                                                          <td style="padding: 5px 10px; font-size: 24px;">
-                                                            <?php echo $value3['t_desc']; ?>
-                                                          </td>
-                                                          <td style="padding: 5px 10px; font-size: 24px;">
-                                                            <?php
-                                                              if($value3['t_status']=='Fail'){
-                                                                echo '<span style="color:red;">'.$value3['t_status'].'</span>';
-                                                              }else{
-                                                                echo '<span style="color:green;">'.$value3['t_status'].'</span>';
-                                                              }
-                                                            ?>
-                                                          </td>
-                                                          <td style="padding: 5px 10px; font-size: 24px;">
-                                                            <?php echo $value3['t_relateuser']; ?>
-                                                          </td>
-                                                          <td style="padding: 5px 10px; font-size: 24px;">
-                                                            <?php echo $value3['t_date']." ".$value3['t_time']; ?>
-                                                          </td>
-                                                        </tr>
-                                                        <?php
-                                                      }
-                                                    }
-                                                    ?>
-                                                  </tbody>
-                                                </table>
-                                              </div>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- End Card Tabs Alternative Style -->
+
             </div>
           </div>
           <!-- End row -->
